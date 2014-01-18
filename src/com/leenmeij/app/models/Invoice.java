@@ -159,7 +159,11 @@ public class Invoice {
 		return invoiceList;
 	}
 
-	
+
+	/**
+	 * Setters and getters
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
@@ -168,10 +172,6 @@ public class Invoice {
 		this.id = id;
 	}
 
-	/**
-	 * Setters and getters
-	 * @return
-	 */
 	public int getUser_id() {
 		return user_id;
 	}

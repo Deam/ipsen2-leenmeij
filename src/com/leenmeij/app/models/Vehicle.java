@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import com.leenmeij.app.utils.Database;
 
 /**
@@ -69,6 +68,17 @@ public class Vehicle {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean checkDuplicates(Vehicle vehicle){
+	
+		for (Vehicle v : vehicle.all()) {
+			if (v.getLicenseplate().equals(vehicle.getLicenseplate())) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/**
@@ -292,7 +302,6 @@ public class Vehicle {
 
 				reservation.setStartDate(new Date(tempStartDateDate.getTime()));
 				reservation.setEndDate(new Date(tempEndDateDate.getTime()));
-				reservation.setPrice(set.getDouble("price"));
 				reservation.setStatus(set.getBoolean("status"));
 				reservation.setPickedUp(set.getBoolean("picked_up"));
 

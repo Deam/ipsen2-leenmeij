@@ -75,7 +75,33 @@ public class VehicleOption{
 	}
 	
 	/**
-	 * Delete the vehicle depending on the vehicle id
+	 * Delete the vehicleoption depending on the vehicleoption id
+	 * @param id
+	 */
+	public void DeleteReservationOption(int id){
+		try {
+			// Declare the database, and establish the connection
+			Database database = new Database();
+			database.connect();
+			
+			// Create the delete query
+			PreparedStatement statement = database.getConnection().prepareStatement("DELETE FROM reservation_vehicle_option WHERE reservation_id = ?");
+			
+			// Set the id to be deleted
+			statement.setInt(1, id);
+			
+			// Execute statement
+			statement.executeUpdate();
+			
+			// Close the connection
+			database.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Delete the vehicleoption depending on the vehicleoption id
 	 * @param id
 	 */
 	public void Delete(int id){
@@ -101,7 +127,7 @@ public class VehicleOption{
 	}
 	
 	/**
-	 * Return an ArrayList with all the vehicles
+	 * Return an ArrayList with all the vehicleoptions
 	 * @return
 	 */
 	public ArrayList<VehicleOption> all(){
@@ -142,7 +168,8 @@ public class VehicleOption{
 	}
 	
 	/**
-	 * Return an ArrayList with all the vehicles
+	 * Return an ArrayList with all the vehicleoptions depending op
+	 * the reservation id
 	 * @return
 	 */
 	public ArrayList<Integer> all(int id){
@@ -178,7 +205,11 @@ public class VehicleOption{
 		return options;
 	}
 	
-	
+	/**
+	 * Get the vehicleoption information per given id
+	 * @param id
+	 * @return
+	 */
 	public VehicleOption getByID(int id){
 		// Declare a new model
 		VehicleOption option = new VehicleOption();
@@ -215,6 +246,11 @@ public class VehicleOption{
 		return option;
 	}
 
+	/**
+	 * ======================================
+	 * Getters and setters
+	 * ======================================
+	 */
 	public int getId() {
 		return id;
 	}

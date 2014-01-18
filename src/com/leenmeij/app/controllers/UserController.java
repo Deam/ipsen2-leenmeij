@@ -188,15 +188,17 @@ public class UserController implements ActionListener {
 					"Succes", JOptionPane.INFORMATION_MESSAGE);
 
 			editUser.dispose();
-
-			userOverview.tablePanel.setViewportView(getCustomerTable());
 			
 			// Update the tables in main
 			MainController.update();
+			userOverview.tablePanel.setViewportView(getCustomerTable());
 		}
 
 		else if (e.getSource() == userOverview.editButton) {
 			try {
+				System.err.println(customerTable.getModel()
+						.getValueAt(customerTable.getSelectedRow(), 0)
+						.toString());
 				getEdit(Integer.parseInt(customerTable.getModel()
 						.getValueAt(customerTable.getSelectedRow(), 0)
 						.toString()));

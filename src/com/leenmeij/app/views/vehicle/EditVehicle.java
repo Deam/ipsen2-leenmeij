@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 import com.leenmeij.app.controllers.VehicleController;
 
 import javax.swing.JScrollPane;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class EditVehicle extends JFrame {
@@ -49,6 +50,8 @@ public class EditVehicle extends JFrame {
 	public JTextField usageText;
 	private JLabel lblSchadegeschiedenis;
 	public JScrollPane damagePanels;
+	private JLabel lblBeschikbaarVoorVerhuur;
+	public JCheckBox availableCheckBox;
 
 	public EditVehicle() {
 		setTitle("Voertuig bewerken");
@@ -83,9 +86,9 @@ public class EditVehicle extends JFrame {
 		contentPane.add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0 };
 		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0,Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 
 		JLabel lblCategorie = new JLabel("Categorie:");
@@ -295,16 +298,32 @@ public class EditVehicle extends JFrame {
 		lblSchadegeschiedenis.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblSchadegeschiedenis = new GridBagConstraints();
 		gbc_lblSchadegeschiedenis.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblSchadegeschiedenis.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSchadegeschiedenis.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSchadegeschiedenis.gridx = 0;
 		gbc_lblSchadegeschiedenis.gridy = 12;
 		contentPanel.add(lblSchadegeschiedenis, gbc_lblSchadegeschiedenis);
 		
 		damagePanels = new JScrollPane();
 		GridBagConstraints gbc_damagePanels = new GridBagConstraints();
+		gbc_damagePanels.insets = new Insets(0, 0, 5, 0);
 		gbc_damagePanels.fill = GridBagConstraints.BOTH;
 		gbc_damagePanels.gridx = 1;
 		gbc_damagePanels.gridy = 12;
 		contentPanel.add(damagePanels, gbc_damagePanels);
+		
+		lblBeschikbaarVoorVerhuur = new JLabel("Beschikbaar voor verhuur:");
+		lblBeschikbaarVoorVerhuur.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblBeschikbaarVoorVerhuur = new GridBagConstraints();
+		gbc_lblBeschikbaarVoorVerhuur.insets = new Insets(0, 0, 0, 5);
+		gbc_lblBeschikbaarVoorVerhuur.gridx = 0;
+		gbc_lblBeschikbaarVoorVerhuur.gridy = 13;
+		contentPanel.add(lblBeschikbaarVoorVerhuur, gbc_lblBeschikbaarVoorVerhuur);
+		
+		availableCheckBox = new JCheckBox("Niet beschikbaar");
+		GridBagConstraints gbc_availableCheckBox = new GridBagConstraints();
+		gbc_availableCheckBox.anchor = GridBagConstraints.WEST;
+		gbc_availableCheckBox.gridx = 1;
+		gbc_availableCheckBox.gridy = 13;
+		contentPanel.add(availableCheckBox, gbc_availableCheckBox);
 	}
 }

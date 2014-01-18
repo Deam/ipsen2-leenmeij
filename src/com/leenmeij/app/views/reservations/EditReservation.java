@@ -28,6 +28,8 @@ public class EditReservation extends JFrame {
 	public JButton editButton;
 	public JButton deleteButton;
 	public JPanel optionsPanel;
+	private JLabel lblVerhuurdata;
+	public JTextField rentalDatesTextField;
 
 	public EditReservation() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -37,9 +39,9 @@ public class EditReservation extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblReservering = new JLabel("Reservering");
@@ -70,7 +72,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblReserveringsnummer, gbc_lblReserveringsnummer);
 		
 		reservationField = new JTextField();
-		reservationField.setEnabled(false);
+		reservationField.setEditable(false);
 		GridBagConstraints gbc_reservationField = new GridBagConstraints();
 		gbc_reservationField.insets = new Insets(0, 0, 5, 0);
 		gbc_reservationField.fill = GridBagConstraints.HORIZONTAL;
@@ -88,7 +90,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblUser, gbc_lblUser);
 		
 		userField = new JTextField();
-		userField.setEnabled(false);
+		userField.setEditable(false);
 		GridBagConstraints gbc_userField = new GridBagConstraints();
 		gbc_userField.insets = new Insets(0, 0, 5, 0);
 		gbc_userField.fill = GridBagConstraints.HORIZONTAL;
@@ -106,7 +108,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblVoertuig, gbc_lblVoertuig);
 		
 		vehicleField = new JTextField();
-		vehicleField.setEnabled(false);
+		vehicleField.setEditable(false);
 		GridBagConstraints gbc_vehicleField = new GridBagConstraints();
 		gbc_vehicleField.insets = new Insets(0, 0, 5, 0);
 		gbc_vehicleField.fill = GridBagConstraints.HORIZONTAL;
@@ -114,6 +116,24 @@ public class EditReservation extends JFrame {
 		gbc_vehicleField.gridy = 4;
 		contentPane.add(vehicleField, gbc_vehicleField);
 		vehicleField.setColumns(10);
+		
+		lblVerhuurdata = new JLabel("Verhuurdata:");
+		GridBagConstraints gbc_lblVerhuurdata = new GridBagConstraints();
+		gbc_lblVerhuurdata.anchor = GridBagConstraints.WEST;
+		gbc_lblVerhuurdata.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVerhuurdata.gridx = 0;
+		gbc_lblVerhuurdata.gridy = 5;
+		contentPane.add(lblVerhuurdata, gbc_lblVerhuurdata);
+		
+		rentalDatesTextField = new JTextField();
+		rentalDatesTextField.setEditable(false);
+		GridBagConstraints gbc_rentalDatesTextField = new GridBagConstraints();
+		gbc_rentalDatesTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_rentalDatesTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rentalDatesTextField.gridx = 1;
+		gbc_rentalDatesTextField.gridy = 5;
+		contentPane.add(rentalDatesTextField, gbc_rentalDatesTextField);
+		rentalDatesTextField.setColumns(10);
 		
 		damageButton = new JButton("Schade melden");
 		damageButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -128,7 +148,7 @@ public class EditReservation extends JFrame {
 		gbc_damageButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_damageButton.insets = new Insets(0, 0, 5, 0);
 		gbc_damageButton.gridx = 1;
-		gbc_damageButton.gridy = 5;
+		gbc_damageButton.gridy = 6;
 		contentPane.add(damageButton, gbc_damageButton);
 		
 		JLabel lblVoertuigopties = new JLabel("Voertuigopties:");
@@ -136,7 +156,7 @@ public class EditReservation extends JFrame {
 		gbc_lblVoertuigopties.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblVoertuigopties.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVoertuigopties.gridx = 0;
-		gbc_lblVoertuigopties.gridy = 6;
+		gbc_lblVoertuigopties.gridy = 7;
 		contentPane.add(lblVoertuigopties, gbc_lblVoertuigopties);
 		
 		optionsPanel = new JPanel();
@@ -144,7 +164,7 @@ public class EditReservation extends JFrame {
 		gbc_optionsPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_optionsPanel.fill = GridBagConstraints.BOTH;
 		gbc_optionsPanel.gridx = 1;
-		gbc_optionsPanel.gridy = 6;
+		gbc_optionsPanel.gridy = 7;
 		contentPane.add(optionsPanel, gbc_optionsPanel);
 		
 		deleteButton = new JButton("Annuleren");
@@ -161,7 +181,7 @@ public class EditReservation extends JFrame {
 		gbc_deleteButton.gridwidth = 2;
 		gbc_deleteButton.insets = new Insets(0, 0, 5, 0);
 		gbc_deleteButton.gridx = 0;
-		gbc_deleteButton.gridy = 9;
+		gbc_deleteButton.gridy = 10;
 		contentPane.add(deleteButton, gbc_deleteButton);
 		
 		editButton = new JButton("Bewerken");
@@ -177,7 +197,7 @@ public class EditReservation extends JFrame {
 		gbc_editButton.gridwidth = 2;
 		gbc_editButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_editButton.gridx = 0;
-		gbc_editButton.gridy = 10;
+		gbc_editButton.gridy = 11;
 		contentPane.add(editButton, gbc_editButton);
 	}
 

@@ -23,7 +23,7 @@ public class MainController implements ActionListener {
 
 	/**
 	 * Method to show the mainview
-	 * here we also set all the actionlistners
+	 * here we also set all the actionlisteners
 	 * and tables for viewing
 	 */
 	public void showMainView() {
@@ -46,6 +46,11 @@ public class MainController implements ActionListener {
 		main.reservationsPanel.setViewportView(ReservationController.getLatestReservationTable());
 		main.invoicePanel.setViewportView(InvoiceController.getLatestInvoiceTable());
 	}
+	/**
+	 * =================================================
+	 * Actionlisteners
+	 * =================================================
+	 */
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

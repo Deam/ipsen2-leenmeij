@@ -15,7 +15,6 @@ public class Reservation {
 	private int vehicleId;
 	private Date startDate;
 	private Date endDate;
-	private double price;
 	private boolean status;
 	private boolean pickedUp;
 	
@@ -45,7 +44,7 @@ public class Reservation {
 			statement.setString(3, format.format(reservation.startDate));
 			statement.setString(4, format.format(reservation.endDate));
 			
-			// Check if 
+			// Check if the vehicle is picked up
 			int picked = 0;
 			if(pickedUp){
 				picked = 1;
@@ -54,6 +53,7 @@ public class Reservation {
 			}
 			statement.setInt(5, picked);
 			
+			// Set default values for the status and emailsending
 			statement.setInt(6, 0);
 			statement.setInt(7, 0);
 
@@ -94,8 +94,10 @@ public class Reservation {
 		}
 	}
 	
-	public Reservation get(int userID, int vehicleID){
+	public Reservation get(Reservation r){
+		// helpt kennelijk niet zo veel
 		Reservation reservation = new Reservation();
+		
 		try {
 			// Declare the database, and establish the connection
 			Database database = new Database();
@@ -104,10 +106,15 @@ public class Reservation {
 			// Prepare the insert query
 			PreparedStatement statement = database.getConnection()
 					.prepareStatement(
-							"SELECT * FROM reservation WHERE user_id = ? AND vehicle_id = ?");
+							"SELECT * FROM reservation WHERE user_id = ? AND vehicle_id = ? AND startdate = ? AND enddate = ?");
 			
-			statement.setInt(1, userID);
-			statement.setInt(2, vehicleID);
+			statement.setInt(1, r.getUserId());
+			statement.setInt(2, r.getVehicleId());
+			
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
+			
+			statement.setString(3, format.format(r.getStartDate()));
+			statement.setString(4, format.format(r.getEndDate()));
 			
 			ResultSet set = statement.executeQuery();
 			
@@ -116,6 +123,8 @@ public class Reservation {
 				reservation.setUserId(set.getInt("user_id"));
 				reservation.setVehicleId(set.getInt("vehicle_id"));
 			}
+			
+			System.err.println(reservation.getId());
 
 			// Close the connection
 			database.close();
@@ -127,6 +136,11 @@ public class Reservation {
 		return reservation;
 	}
 	
+	/**
+	 * Get the reservation information depending on the given id
+	 * @param id
+	 * @return
+	 */
 	public Reservation getById(int id){
 		Reservation reservation = new Reservation();
 		try {
@@ -147,6 +161,11 @@ public class Reservation {
 				reservation.setId(set.getInt("id"));
 				reservation.setUserId(set.getInt("user_id"));
 				reservation.setVehicleId(set.getInt("vehicle_id"));
+				
+				SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
+				
+				reservation.setStartDate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
+				reservation.setEndDate(new java.sql.Date(format.parse(set.getString("enddate")).getTime()));
 			}
 
 			// Close the connection
@@ -190,7 +209,6 @@ public class Reservation {
 				
 				reservation.setStartDate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
 				reservation.setEndDate(new java.sql.Date(format.parse(set.getString("enddate")).getTime()));
-				reservation.setPrice(set.getDouble("price"));
 				reservation.setStatus(set.getBoolean("status"));
 				reservation.setPickedUp(set.getBoolean("picked_up"));
 				
@@ -241,7 +259,6 @@ public class Reservation {
 				
 				reservation.setStartDate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
 				reservation.setEndDate(new java.sql.Date(format.parse(set.getString("enddate")).getTime()));
-				reservation.setPrice(set.getDouble("price"));
 				reservation.setStatus(set.getBoolean("status"));
 				reservation.setPickedUp(set.getBoolean("picked_up"));
 				
@@ -257,6 +274,32 @@ public class Reservation {
 
 		// Return the list of reservations.
 		return allReservations;
+	}
+	
+	/**
+	 * Delete the vehicleoption depending on the vehicleoption id
+	 * @param id
+	 */
+	public void Delete(int id){
+		try {
+			// Declare the database, and establish the connection
+			Database database = new Database();
+			database.connect();
+			
+			// Create the delete query
+			PreparedStatement statement = database.getConnection().prepareStatement("DELETE FROM reservation WHERE id = ?");
+			
+			// Set the id to be deleted
+			statement.setInt(1, id);
+			
+			// Execute statement
+			statement.executeUpdate();
+			
+			// Close the connection
+			database.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -301,14 +344,6 @@ public class Reservation {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 	public boolean isStatus() {

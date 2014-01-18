@@ -107,44 +107,77 @@ public class ReservationController implements ActionListener, WindowListener{
 	public void getEditReservation(int id){
 		editReservation = new EditReservation();
 		editReservation.damageButton.addActionListener(this);
+		editReservation.editButton.addActionListener(this);
+		editReservation.deleteButton.addActionListener(this);
+		
+		// Get the reservation information
 		Reservation reservation = new Reservation();
 		reservation = reservation.getById(id);
 		
+		// Get the user information
 		User user = new User();
 		user = user.getById(reservation.getUserId());
 		
+		// Get the vehicle information
 		Vehicle vehicle = new Vehicle();
 		vehicle = vehicle.getById(reservation.getVehicleId());
 		
+		// Set the text accordingly
 		editReservation.reservationField.setText(Integer.toString(reservation.getId()));
 		editReservation.userField.setText(user.getFirstName() + " " + user.getLastName());
 		editReservation.vehicleField.setText(vehicle.getBrand() + " " + vehicle.getModel());
+		editReservation.rentalDatesTextField.setText(reservation.getStartDate() + " t/m " + reservation.getEndDate());
 		
 		editReservation.setVisible(true);
 		
+		optionList = new ArrayList<>();
+		
+		// Set the selected vehicleoptions
 		VehicleOption options = new VehicleOption();
-		for (VehicleOption vo : options.all()) {
-			JCheckBox checkBox = new JCheckBox();
+		for (final VehicleOption vo : options.all()) {
+			final JCheckBox checkBox = new JCheckBox();
 			checkBox.setText(vo.getName());
 			checkBox.setName(Integer.toString(vo.getId()));
 			
 			for (Integer o : vo.all(id)) {
 				if (o == vo.getId()) {
 					checkBox.setSelected(true);
+					optionList.add(vo.getId());
 				}
 			}
+			
+			checkBox.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent arg0) {
+					if (checkBox.isSelected()) {
+						optionList.add(vo.getId());
+					}else{
+						for (int i = 0; i < optionList.size(); i++) {
+							int tempId = optionList.get(i);
+							
+							if (tempId == vo.getId()) {
+								optionList.remove(i);
+							}
+						}
+					}
+				}
+			});
 			
 			editReservation.optionsPanel.add(checkBox);
 		}
 	}
 	
 	public void showAddDamage(int id){
+		// Declare the view
 		addDamage = new AddDamage();
 		addDamage.addButton.addActionListener(this);
 		
+		// Declare a reservationmodel
 		Reservation reservation = new Reservation();
 		reservation = reservation.getById(id);
 		
+		// Declare a vehiclemodel
 		Vehicle vehicle = new Vehicle();
 		vehicle = vehicle.getById(reservation.getVehicleId());
 		
@@ -158,28 +191,49 @@ public class ReservationController implements ActionListener, WindowListener{
 		addDamage.setVisible(true);
 	}
 
+	/**
+	 * Add the options to the panel where it is initiated
+	 */
 	private void addOptions() {
+		// Declare the model
 		VehicleOption options = new VehicleOption();
+		// Declare the arraylist
 		optionList = new ArrayList<Integer>();
 
+		// Foreach vehicleoption in the arraylist from the model,
+		// create a checkbox
 		for (final VehicleOption vo : options.all()) {
+			// Make a new checkboxs
 			final JCheckBox checkBox = new JCheckBox();
+			// Set the checkboxtext
 			checkBox.setText(vo.getName());
-			checkBox.setName(Integer.toString(vo.getId()));
+			// Add an itemlistner for the checkbox
 			checkBox.addItemListener(new ItemListener() {
 				
 				@Override
 				public void itemStateChanged(ItemEvent arg0) {
+					// If the checkbox is selecten, add it to the list
+					// and update the prices
 					if (checkBox.isSelected()) {
 						optionList.add(vo.getId());
 						updatePrices(dayprice += vo.getPrice() * 24);
-					}else{
-						//optionList.remove(vo.getId());
-						updatePrices(dayprice -= vo.getPrice() * 24);
 					}
-
+					// If the checkbox is deselected
+					//Update the list, and update the price
+					else 
+					{
+						for (int i = 0; i < optionList.size(); i++) {
+							int tempId = optionList.get(i);
+							
+							if (tempId == vo.getId()) {
+								optionList.remove(i);
+								updatePrices(dayprice -= vo.getPrice() * 24);
+							}
+						}
+					}
 				}
 			});
+			// Add the checkbox to the panel.
 			addReservation.vehicleOptionsPanel.add(checkBox);
 		}
 	}
@@ -225,13 +279,16 @@ public class ReservationController implements ActionListener, WindowListener{
 					
 					// Set pickedup
 					reservation.setPickedUp(false);
-	
-	
-					Reservation r = reservation.get(Integer.parseInt(addReservation.customerNumberTextField.getText()), vehicleID);
 					
+					// Insert the reservation
+					reservation.Insert(reservation);
+				
+					// Ask for the reservation id so we can process it
+					Reservation r = reservation.get(reservation);
+
 					// foreach option in the list, add it to the database
 					for (Integer integer : optionList) {
-						reservation.InsertReservationOption(integer, r.getId());
+						r.InsertReservationOption(integer, r.getId());
 					}
 					
 					// Create the invoice
@@ -252,13 +309,11 @@ public class ReservationController implements ActionListener, WindowListener{
 					// Calculate the number of days
 					long days = Math.abs((addReservation.startDatePicker.getDate().getTime() - addReservation.endDatePicker.getDate().getTime()) / day);
 					
+					// Set additional invoice information
 					invoice.setPrice(dayPrice * days);
 					invoice.setTotal((invoice.getPrice()) + ((invoice.getPrice() / 100) * 21));
 					invoice.setReservation_id(r.getId());
 					invoice.Insert(invoice);
-					
-					// Insert the reservation
-					reservation.Insert(reservation);
 					
 					// Create the invoice pdf
 					CreatePdf pdf = new CreatePdf();
@@ -402,10 +457,6 @@ public class ReservationController implements ActionListener, WindowListener{
 					JOptionPane.showMessageDialog(null, "Selecteer een reservering", "Fout", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
-			else if(e.getSource() == viewReservation.deleteButton){
-				
-			}
 		}
 		
 		/**
@@ -416,6 +467,45 @@ public class ReservationController implements ActionListener, WindowListener{
 		if(editReservation != null){
 			if(e.getSource() == editReservation.damageButton){
 				showAddDamage(reservationID);
+			}
+			
+			else if(e.getSource() == editReservation.editButton){
+				// Get the reservationmodel
+				Reservation reservation = new Reservation();
+				reservation = reservation.getById(Integer.parseInt(editReservation.reservationField.getText()));
+				
+				// Delete the existing options
+				VehicleOption vehicleOption = new VehicleOption();
+				vehicleOption.DeleteReservationOption(reservation.getId());
+			
+				// Insert the options
+				for (Integer integer : optionList) {
+					reservation.InsertReservationOption(integer, reservation.getId());
+				}
+				// SHow a message
+				JOptionPane.showMessageDialog(null, "De reservering is succesvol bijgewerkt.");
+				// Dispose the window
+				editReservation.dispose();
+				// Update the table
+				viewReservation.tablePanel.setViewportView(getReservationTable());
+			}
+			
+			else if(e.getSource() == editReservation.deleteButton){
+				try {
+					// Declare the model
+					Reservation reservation = new Reservation();
+					// Delete the reservation
+					reservation.Delete(Integer.parseInt(editReservation.reservationField.getText()));
+					// SHow a message
+					JOptionPane.showMessageDialog(null, "De reservering is geannuleerd.");
+					// Dispose the view
+					editReservation.dispose();
+					// Update the table
+					viewReservation.tablePanel.setViewportView(getReservationTable());
+				} catch (NumberFormatException e1) {
+					// If there is an error, show a message
+					JOptionPane.showMessageDialog(null, "De geselecteerde reserving kan niet worden verwijdert.");
+				}
 			}
 		}
 		
@@ -439,6 +529,13 @@ public class ReservationController implements ActionListener, WindowListener{
 					vehicleDamage.Insert(vehicleDamage);
 					// Show a succes message
 					JOptionPane.showMessageDialog(null, "De schade is succesvol gemeld");
+					
+					if(addDamage.availableCheckBox.isSelected()){
+						Vehicle vehicle = new Vehicle();
+						vehicle.setVehicleAvailable(addDamage.vehicleID, true);
+					}
+					
+					addDamage.dispose();
 				} catch(Exception ex){
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, probeer het later nog eens of neem contact op met de systeembeheerder");
 				}

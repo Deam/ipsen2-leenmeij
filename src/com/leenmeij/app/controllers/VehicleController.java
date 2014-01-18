@@ -74,6 +74,10 @@ public class VehicleController implements ActionListener{
 		editVehicle.hourlyrateTextBox.setText(Double.toString(vehicle
 				.getHourlyrate()));
 		editVehicle.commentArea.setText(vehicle.getComment());
+		
+		if(vehicle.getLocked() == 1){
+			editVehicle.availableCheckBox.setSelected(true);
+		}
 	}
 
 	public void getOverview() {
@@ -146,12 +150,17 @@ public class VehicleController implements ActionListener{
 						vehicle.setImage(addVehicle.imageTextField.getText());
 					}
 
-					vehicle.Insert(vehicle);
-					
-					JOptionPane.showMessageDialog(null, "Het voertuig is succesvol toegevoegd.");
-					
-					// Update the tables in main
-					MainController.update();
+					if(vehicle.checkDuplicates(vehicle)){
+						vehicle.Insert(vehicle);
+						
+						JOptionPane.showMessageDialog(null, "Het voertuig is succesvol toegevoegd.");
+						
+						// Update the tables in main
+						MainController.update();
+					} else{
+						JOptionPane.showMessageDialog(null, "Er bestaat al een voertuig met het zelfde kenteken");
+					}
+
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controleer de gegevens en probeer het opnieuw.");
 				}
@@ -201,14 +210,19 @@ public class VehicleController implements ActionListener{
 
 					vehicle.Update(vehicle);
 					
-					vehicleOverview.tablePanel.setViewportView(getVehicleTable());
-					
+					if(!editVehicle.availableCheckBox.isSelected()){
+						vehicle.setVehicleAvailable(Integer.parseInt(editVehicle.idTextField
+							.getText()), false);
+					}
+
 					editVehicle.dispose();
 					
 					JOptionPane.showMessageDialog(null, "Het voertuig is succesvol aangepast");
 					
 					// Update the tables in main
 					MainController.update();
+					vehicleOverview.tablePanel.setViewportView(getVehicleTable());
+					
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controleer de gegevens en probeer het opnieuw.");
 				}
@@ -234,6 +248,7 @@ public class VehicleController implements ActionListener{
 		if (vehicleOverview != null) {
 			if (e.getSource() == vehicleOverview.editButton) {			
 				try {
+					System.out.println(vehicleTable.getModel().getValueAt(vehicleTable.getSelectedRow(), 0));
 					getEditVehicle(Integer.parseInt(vehicleTable.getModel()
 							.getValueAt(vehicleTable.getSelectedRow(), 0)
 							.toString()));
