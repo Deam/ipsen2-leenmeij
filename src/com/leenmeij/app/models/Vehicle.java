@@ -57,8 +57,6 @@ public class Vehicle {
 			statement.setInt(10, vehicle.getVehicleUsage());
 			statement.setString(11, vehicle.getImage());
 
-			System.out.println(statement);
-
 			// Execute the query
 			statement.executeUpdate();
 

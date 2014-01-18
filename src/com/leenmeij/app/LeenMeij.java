@@ -1,6 +1,6 @@
 package com.leenmeij.app;
 
-import com.leenmeij.app.controllers.MainController;
+import com.leenmeij.app.controllers.UserController;
 
 public class LeenMeij {
 	
@@ -8,7 +8,7 @@ public class LeenMeij {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		
 		// Try to set the style of the frames, catch the exeptions
-		MainController controller = new MainController();
-		controller.showMainView();
+		UserController controller = new UserController();
+		controller.initLogin();
 	}
 }

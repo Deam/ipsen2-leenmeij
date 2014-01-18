@@ -45,8 +45,8 @@ public class UserController implements ActionListener {
 		login.setVisible(true);
 
 		// Add action listeners to view.
-		login.btnInloggen.addActionListener(this);
-		login.btnAnnuleren.addActionListener(this);
+		login.loginButton.addActionListener(this);
+		login.cancelButton.addActionListener(this);
 	}
 
 	/**
@@ -108,10 +108,14 @@ public class UserController implements ActionListener {
 		 * Login view
 		 * ====================================================================
 		 */
-		if (e.getSource() == login.btnInloggen) {
-			if (user.checkLogin(login.usernameField.getText(),
-					login.passwordField.getText())) {
-				// Logged in.
+		if (e.getSource() == login.loginButton) {
+			if (user.checkLogin(login.emailTextField.getText(), login.passwordField.getText())) {
+				MainController controller = new MainController();
+				controller.userEmail = login.emailTextField.getText();
+				controller.showMainView();
+
+				// Dispose the loginscreen
+				login.dispose();
 			} else {
 				JOptionPane
 						.showMessageDialog(
@@ -121,7 +125,7 @@ public class UserController implements ActionListener {
 			}
 		}
 
-		else if (e.getSource() == login.btnAnnuleren) {
+		else if (e.getSource() == login.cancelButton) {
 			login.dispose();
 		}
 

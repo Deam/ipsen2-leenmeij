@@ -3,6 +3,7 @@ package com.leenmeij.app.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.leenmeij.app.models.User;
 import com.leenmeij.app.views.Main;
 /**
  * Main class, here we show the tables with some information
@@ -20,6 +21,8 @@ public class MainController implements ActionListener {
 	private ReservationController reservationController = new ReservationController();
 	private UserController userController = new UserController();
 	private InvoiceController invoiceController = new InvoiceController();
+	
+	public String userEmail;
 
 	/**
 	 * Method to show the mainview
@@ -28,8 +31,22 @@ public class MainController implements ActionListener {
 	 */
 	public void showMainView() {
 		main = new Main(this);
+		main.loggedLabel.setText("Ingelogd als: " + userEmail);
 		main.setVisible(true);
-
+		
+		User user = new User();
+		String role = user.getRole(userEmail);
+		
+		// Disable features for the balie employee
+		if(role.equals("Balie")){
+			main.vehicleItem.setVisible(false);
+		}
+		
+		// Disable features for the garage employee
+		else if (role.equals("Garage")) {
+			main.usersItem.setVisible(false);
+		}
+		
 		main.addReservationItem.addActionListener(this);
 		main.addUserItem.addActionListener(this);
 		

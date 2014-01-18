@@ -30,10 +30,6 @@ public class User {
 	private Date updatedAt;
 
 	/**
-	 * Private methods ========================================
-	 */
-
-	/**
 	 * Public methods ========================================
 	 */
 
@@ -52,13 +48,78 @@ public class User {
 		user = user.find(email);
 
 		// Check if the user password belongs to the user e-mail.
-		if (user.password == user.password) {
-			// If the two passwords are equal, return true.
-			return true;
+		if (!email.isEmpty()) {
+			for (User u : user.all()) {
+				if (u.getEmail().equals(email)) {
+					return true;
+				}
+			}
 		}
+		
+		else if (!password.isEmpty()) {
+			return false;
+		}
+		
 
 		// If something went wrong, return false.
 		return false;
+	}
+	
+	public String getRole(String email) {
+		
+		User user = new User();
+		user = user.find(email);
+		
+		int roleId = 0;
+		String roleName = "";
+		
+		try {
+			// Connect to the database
+			Database database = new Database();
+			database.connect();
+			
+			PreparedStatement statement = database.getConnection().prepareStatement("SELECT * FROM userroles WHERE user_id = ?");
+			
+			statement.setInt(1, user.getId());
+			
+			ResultSet set = statement.executeQuery();
+			
+			while(set.next()) {
+				roleId = set.getInt("role_id");
+				System.out.println(roleId);
+			}
+			
+			database.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		try {
+			// Connect to the database
+			Database database = new Database();
+			database.connect();
+			
+			PreparedStatement statement = database.getConnection().prepareStatement("SELECT * FROM roles WHERE id = ?");
+			
+			statement.setInt(1, roleId);
+			
+			ResultSet set = statement.executeQuery();
+			
+		
+			
+			while(set.next()) {
+				roleName = set.getString("name");
+				System.err.println(roleName);
+			}
+			
+			database.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return roleName;
 	}
 
 	/**
