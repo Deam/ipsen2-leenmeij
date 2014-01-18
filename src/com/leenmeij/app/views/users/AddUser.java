@@ -17,6 +17,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+
+import com.leenmeij.app.controllers.UserController;
 
 @SuppressWarnings("serial")
 public class AddUser extends JFrame {
@@ -39,12 +42,14 @@ public class AddUser extends JFrame {
 	public JTextField vatNumberTextField;
 	
 	public JButton addButton;
+	private JLabel lblGebruikersrol;
+	public JComboBox<String> rolesBox;
 
 	public AddUser() {
 		setTitle("Gebruiker toevoegen");
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 543);
+		setBounds(100, 100, 450, 449);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 240, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,6 +84,23 @@ public class AddUser extends JFrame {
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
+		
+		lblGebruikersrol = new JLabel("Gebruikersrol:");
+		lblGebruikersrol.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblGebruikersrol = new GridBagConstraints();
+		gbc_lblGebruikersrol.anchor = GridBagConstraints.WEST;
+		gbc_lblGebruikersrol.insets = new Insets(0, 0, 5, 5);
+		gbc_lblGebruikersrol.gridx = 0;
+		gbc_lblGebruikersrol.gridy = 0;
+		contentPanel.add(lblGebruikersrol, gbc_lblGebruikersrol);
+		
+		rolesBox = new JComboBox<String>(UserController.userRoles());
+		GridBagConstraints gbc_rolesBox = new GridBagConstraints();
+		gbc_rolesBox.insets = new Insets(0, 0, 5, 0);
+		gbc_rolesBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rolesBox.gridx = 1;
+		gbc_rolesBox.gridy = 0;
+		contentPanel.add(rolesBox, gbc_rolesBox);
 
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 11));

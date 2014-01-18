@@ -40,8 +40,9 @@ public class VehicleController implements ActionListener{
 	 * Add the actionlisteners
 	 */
 	public void getAddVehicle() {
+		// Declare the view
 		addVehicle = new AddVehicle();
-
+		// Add the actionlisteners
 		addVehicle.addButton.addActionListener(this);
 		addVehicle.selectImageButton.addActionListener(this);
 
@@ -300,17 +301,18 @@ public class VehicleController implements ActionListener{
 	 * @return A DefaultComboBox with the categories
 	 */
 	public static DefaultComboBoxModel<String> categoryItems() {
+		// Declare the new contentholder
 		Vector<String> comboboxItemsVector = new Vector<String>();
-
+		// Declare the model
 		Vehicle vehicle = new Vehicle();
-
+		// Foreach string, add to the contentholder
 		for (String category : vehicle.getAllCategories()) {
 			comboboxItemsVector.add(category);
 		}
-
+		// Declare the box model
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(
 				comboboxItemsVector);
-
+		// Return the model
 		return model;
 	}
 	

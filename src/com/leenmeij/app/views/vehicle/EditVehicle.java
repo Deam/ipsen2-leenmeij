@@ -21,11 +21,10 @@ import java.awt.Insets;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-
-import com.leenmeij.app.controllers.VehicleController;
-
 import javax.swing.JScrollPane;
 import javax.swing.JCheckBox;
+
+import com.leenmeij.app.controllers.VehicleController;
 
 @SuppressWarnings("serial")
 public class EditVehicle extends JFrame {
@@ -99,9 +98,8 @@ public class EditVehicle extends JFrame {
 		gbc_lblCategorie.gridx = 0;
 		gbc_lblCategorie.gridy = 1;
 		contentPanel.add(lblCategorie, gbc_lblCategorie);
-
+	
 		categoryComboBox = new JComboBox<String>(VehicleController.categoryItems());
-		
 		categoryComboBox
 				.setToolTipText("Selecteer de categorie waarin het voertuig valt.");
 		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();

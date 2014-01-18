@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import com.leenmeij.app.models.User;
+import com.leenmeij.app.models.UserRole;
 import com.leenmeij.app.views.users.AddUser;
 import com.leenmeij.app.views.users.EditUser;
 import com.leenmeij.app.views.users.Login;
@@ -63,7 +65,6 @@ public class UserController implements ActionListener {
 		addUser = new AddUser();
 		// Add the action listener.
 		addUser.addButton.addActionListener(this);
-
 		// Make view visible.
 		addUser.setVisible(true);
 	}
@@ -75,12 +76,16 @@ public class UserController implements ActionListener {
 	 *            The id of the user you want to edit.
 	 */
 	public void getEdit(int id) {
+		user = new User();
 		// Retrieve information from the database.
 		user = user.find(id);
 
 		// Makes view visible, then add the action listener.
 		editUser.editButton.addActionListener(this);
 		editUser.setVisible(true);
+		
+		UserRole role = new UserRole();
+		editUser.roleBox.setSelectedIndex(role.getById(user.getId()) - 1);
 
 		// Set the text fields within the view.
 		editUser.idTextField.setText(Integer.toString(id));
@@ -170,6 +175,16 @@ public class UserController implements ActionListener {
 						JOptionPane.INFORMATION_MESSAGE);
 				// Dispose the adduser view
 				addUser.dispose();
+				
+				// Get a new user model for id passing
+				User u = user.find(addUser.emailTextField.getText());
+				// Declare a new model
+				UserRole userRole = new UserRole();
+				// Set the values
+				userRole.setUserID(u.getId());
+				userRole.setRoleID(addUser.rolesBox.getSelectedIndex() + 1);
+				// Insert the user
+				userRole.InsertUser(userRole);
 								
 				// Update the tables in main
 				MainController.update();
@@ -209,6 +224,12 @@ public class UserController implements ActionListener {
 						"Succes", JOptionPane.INFORMATION_MESSAGE);
 				// Close the edit user screen
 				editUser.dispose();
+				
+				// Update the userrole
+				UserRole userRole = new UserRole();
+				userRole.setUserID(user.getId());
+				userRole.setRoleID(editUser.roleBox.getSelectedIndex() + 1);
+				userRole.Update(userRole);
 				
 				// Update the tables in main
 				MainController.update();
@@ -354,5 +375,26 @@ public class UserController implements ActionListener {
 		customerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		return customerTable;
+	}
+	
+	/**
+	 * Makes a DefaultComboBoxModel, filled with the userroles.
+	 * 
+	 * @return A DefaultComboBox with the userroles
+	 */
+	public static DefaultComboBoxModel<String> userRoles() {
+		// Declare the new contentholder
+		Vector<String> comboboxItemsVector = new Vector<String>();
+		// Declare the model
+		UserRole userRole = new UserRole();
+		// Foreach string, add to the contentholder
+		for (String role : userRole.getAllRoles()) {
+			comboboxItemsVector.add(role);
+		}
+		// Declare the box model
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(
+				comboboxItemsVector);
+		// Return the model
+		return model;
 	}
 }

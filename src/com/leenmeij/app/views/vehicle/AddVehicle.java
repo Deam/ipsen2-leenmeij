@@ -2,7 +2,6 @@ package com.leenmeij.app.views.vehicle;
 
 import java.awt.BorderLayout;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,14 +21,9 @@ import java.awt.Insets;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 import com.leenmeij.app.controllers.VehicleController;
-import com.leenmeij.app.models.Vehicle;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class AddVehicle extends JFrame {
@@ -102,8 +96,7 @@ public class AddVehicle extends JFrame {
 		gbc_lblCategorie.gridy = 1;
 		contentPanel.add(lblCategorie, gbc_lblCategorie);
 
-		categoryComboBox = new JComboBox<String>(
-				VehicleController.categoryItems());
+		categoryComboBox = new JComboBox<String>(VehicleController.categoryItems());
 		categoryComboBox
 				.setToolTipText("Selecteer de categorie waarin het voertuig valt.");
 		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
@@ -300,36 +293,5 @@ public class AddVehicle extends JFrame {
 		commentArea
 				.setToolTipText("Plaats hier een omschrijving van het voertuig");
 		scrollPane.setViewportView(commentArea);
-	}
-
-	/**
-	 * Set the model, so we can get the information in the controller.
-	 * 
-	 * @return
-	 */
-	public Vehicle getModel() {
-		Vehicle vehicle = new Vehicle();
-		vehicle.setVehiclecategoryid(categoryComboBox.getSelectedIndex() - 1);
-		vehicle.setBrand(brandTextField.getText());
-		vehicle.setModel(modelTextField.getText());
-		vehicle.setMilage(Integer.parseInt(milageTextField.getText()));
-		vehicle.setLicenseplate(licenseTextBox.getText());
-		vehicle.setComment(commentArea.getText());
-		vehicle.setColor(colorTextField.getText());
-		vehicle.setHourlyrate(Double.parseDouble(hourlyrateTextBox.getText()));
-		vehicle.setImage(imgName);
-		vehicle.setVehicleUsage(Integer.parseInt(usageText.getText()));
-
-		try {
-			BufferedImage bi = ImageIO.read(new File(pictureLabel.getText()));
-			ImageIO.write(bi, "jpg", new File(
-					"C:\\Users\\Aart\\Documents\\GitHub\\ipsen3\\public\\uploaded\\vehicles\\"
-							+ imgName));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}// image url
-
-		return vehicle;
 	}
 }
