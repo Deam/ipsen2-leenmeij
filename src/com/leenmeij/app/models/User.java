@@ -1,12 +1,17 @@
 package com.leenmeij.app.models;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.leenmeij.app.utils.Database;
 
+/**
+ * This class handles the user methods
+ * Including loggin in, inserting, updating etc.
+ * @author Deam
+ *
+ */
 public class User {
 
 	private int id;
@@ -26,12 +31,6 @@ public class User {
 	private String vatNumber;
 	private boolean business;
 	private int company;
-	private Date createdAt;
-	private Date updatedAt;
-
-	/**
-	 * Public methods ========================================
-	 */
 
 	/**
 	 * Checks if the user is legit.
@@ -65,60 +64,61 @@ public class User {
 		return false;
 	}
 	
+	/**
+	 * Get the role of the user that is logging in
+	 * @param email
+	 * @return the userrole as a string
+	 */
 	public String getRole(String email) {
-		
+		// Declare a new user
 		User user = new User();
+		// Find the desired user
 		user = user.find(email);
-		
+		// Declare variables for later use
 		int roleId = 0;
 		String roleName = "";
 		
+		// Connect to the database
+		Database database = new Database();
+		database.connect();
+		
+		// Try and get the userroleid
 		try {
-			// Connect to the database
-			Database database = new Database();
-			database.connect();
-			
+			// Make the statement
 			PreparedStatement statement = database.getConnection().prepareStatement("SELECT * FROM userroles WHERE user_id = ?");
-			
+			// Declare the variables
 			statement.setInt(1, user.getId());
-			
+			// Fill the resultset
 			ResultSet set = statement.executeQuery();
-			
+			// Set the information
 			while(set.next()) {
 				roleId = set.getInt("role_id");
-				System.out.println(roleId);
 			}
 			
-			database.close();
-			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
+		// Try to get the role depending on the userroleid
 		try {
-			// Connect to the database
-			Database database = new Database();
-			database.connect();
-			
+			// Make the statement
 			PreparedStatement statement = database.getConnection().prepareStatement("SELECT * FROM roles WHERE id = ?");
-			
+			// Set the variables
 			statement.setInt(1, roleId);
-			
+			// Fill the resultset
 			ResultSet set = statement.executeQuery();
-			
-		
-			
+			// Set the information gotten from the resultset
 			while(set.next()) {
 				roleName = set.getString("name");
-				System.err.println(roleName);
 			}
 			
-			database.close();
-			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
+		// Close the connection 
+		database.close();
 		
+		// Return the rolename
 		return roleName;
 	}
 
@@ -136,15 +136,15 @@ public class User {
 
 		// Try to retrieve information from the database.
 		try {
+			// Make the statement
 			PreparedStatement statement = database
 					.getConnection()
 					.prepareStatement(
 							"INSERT INTO users (password, email, firstname, lastname, addresslineone, addresslinetwo, city, zipcode, country, phonenumber, licensenumber, passportnumber, kvknumber, vatnumber, business, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-			// Give the query the email of the user.
-			statement
-					.setString(1,
-							"$2y$08$oWYIot20GQqskbvcsJN.YeUiYKh3CKrCR4Tllvu7pEU2TKvtRMirC");
+			// Set a standard password
+			statement.setString(1,"$2y$08$oWYIot20GQqskbvcsJN.YeUiYKh3CKrCR4Tllvu7pEU2TKvtRMirC");
+			// Set the variables
 			statement.setString(2, user.getEmail());
 			statement.setString(3, user.getFirstName());
 			statement.setString(4, user.getLastName());
@@ -272,8 +272,6 @@ public class User {
 				user.setVatNumber(resultSet.getString("vatnumber"));
 				user.setBusiness(resultSet.getBoolean("business"));
 				user.setCompany(resultSet.getInt("company_id"));
-				user.setCreatedAt(resultSet.getDate("created_at"));
-				user.setUpdatedAt(resultSet.getDate("updated_at"));
 			}
 
 		} catch (Exception e) {
@@ -333,8 +331,6 @@ public class User {
 				user.setVatNumber(resultSet.getString("vatnumber"));
 				user.setBusiness(resultSet.getBoolean("business"));
 				user.setCompany(resultSet.getInt("company_id"));
-				user.setCreatedAt(resultSet.getDate("created_at"));
-				user.setUpdatedAt(resultSet.getDate("updated_at"));
 			}
 
 		} catch (Exception e) {
@@ -391,8 +387,6 @@ public class User {
 				user.setVatNumber(resultSet.getString("vatnumber"));
 				user.setBusiness(resultSet.getBoolean("business"));
 				user.setCompany(resultSet.getInt("company_id"));
-				user.setCreatedAt(resultSet.getDate("created_at"));
-				user.setUpdatedAt(resultSet.getDate("updated_at"));
 				
 				userList.add(user);
 			}
@@ -595,157 +589,274 @@ public class User {
 	}
 
 	/**
-	 * Getters and setters ========================================
+	 * Get the user id
+	 * @return the id of the user
 	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Set the id of the user
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Get the email
+	 * @return the email adress of the user
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Set the emailadress for the user
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Get the password
+	 * @return the user password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Set the user password
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * Get the firstname
+	 * @return the firstname for the user
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * Set the firstname for the user
+	 * @param firstName
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * Get the lastname
+	 * @return the lastname of the user
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * Set the lastname for the user
+	 * @param lastName
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	/**
+	 * Get the address
+	 * @return the streetname for the user
+	 */
 	public String getAddressLineOne() {
 		return addressLineOne;
 	}
 
+	/**
+	 * Set the address for the user
+	 * @param addressLineOne
+	 */
 	public void setAddressLineOne(String addressLineOne) {
 		this.addressLineOne = addressLineOne;
 	}
 
+	/**
+	 * get the housenumber
+	 * @return the housenumber for the user
+	 */
 	public String getAddressLineTwo() {
 		return addressLineTwo;
 	}
 
+	/**
+	 * Set the housenumber for the user
+	 * @param addressLineTwo
+	 */
 	public void setAddressLineTwo(String addressLineTwo) {
 		this.addressLineTwo = addressLineTwo;
 	}
-
+	
+	/**
+	 * Get the city 
+	 * @return the city where the user lives
+	 */
 	public String getCity() {
 		return city;
 	}
 
+	/**
+	 * Set the city the user lives in
+	 * @param city
+	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
 
+	/**
+	 * Get the zipcode
+	 * @return the zipcode of the user
+	 */
 	public String getZipCode() {
 		return zipCode;
 	}
 
+	/**
+	 * Set the zipcode for the user
+	 * @param zipCode
+	 */
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
+	/**
+	 * Get the country
+	 * @return the country where the user lives
+	 */
 	public String getCountry() {
 		return country;
 	}
 
+	/**
+	 * Set the country where the user lives
+	 * @param country
+	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
+	/**
+	 * Get the phonenumber
+	 * @return the phonenumber for the user
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+	/**
+	 * Set the phonenumber for the user
+	 * @param phoneNumber
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
+	
+	/**
+	 * Get the driverlicense number
+	 * @return the number of the driverslicense
+	 */
 	public String getLicenseNumber() {
 		return licenseNumber;
 	}
 
+	/**
+	 * Set the driverslicense number
+	 * @param licenseNumber
+	 */
 	public void setLicenseNumber(String licenseNumber) {
 		this.licenseNumber = licenseNumber;
 	}
 
+	/**
+	 * Get the passportnumber
+	 * @return the number of the passport
+	 */
 	public String getPassportNumber() {
 		return passportNumber;
 	}
 
+	/**
+	 * Set the passportnumber
+	 * @param passportNumber
+	 */
 	public void setPassportNumber(String passportNumber) {
 		this.passportNumber = passportNumber;
 	}
 
+	/**
+	 * Get the kvknumber
+	 * @return the kvknumber if the user is a business user
+	 */
 	public String getKvkNumber() {
 		return kvkNumber;
 	}
 
+	/**
+	 * Set the kvknumber for the user if it is a business user
+	 * @param kvkNumber
+	 */
 	public void setKvkNumber(String kvkNumber) {
 		this.kvkNumber = kvkNumber;
 	}
 
+	/**
+	 * Get the vat number
+	 * @return a vat number for a business user
+	 */
 	public String getVatNumber() {
 		return vatNumber;
 	}
 
+	/**
+	 * Set the vatnumber for a business user
+	 * @param vatNumber
+	 */
 	public void setVatNumber(String vatNumber) {
 		this.vatNumber = vatNumber;
 	}
 
+	/**
+	 * Set the user as a companyuser
+	 * @return true if the user is part of a company
+	 */
 	public boolean isBusiness() {
 		return business;
 	}
 
+	/**
+	 * Set true if the user is part of a company
+	 * @param business
+	 */
 	public void setBusiness(boolean business) {
 		this.business = business;
 	}
 
+	/**
+	 * Get the company id
+	 * @return the id of the company
+	 */
 	public int getCompany() {
 		return company;
 	}
 
+	/**
+	 * Set the companyid for the user
+	 * @param company
+	 */
 	public void setCompany(int company) {
 		this.company = company;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 }

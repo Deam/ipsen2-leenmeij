@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 import com.leenmeij.app.utils.Database;
 
+/**
+ * This class handles database methods like:
+ * Inserting, updating, deleting and returning lists
+ * @author Deam Kop (s1075228)
+ *
+ */
 public class VehicleOption{
 	
 	private int id;
@@ -15,7 +21,8 @@ public class VehicleOption{
 	private ResultSet set = null;
 	
 	/**
-	 * Insert a new vehicleoption in to the database
+	 * Insert the vehicleoption into the database
+	 * @param vehicleOption
 	 */
 	public void Insert(VehicleOption vehicleOption){
 		try {
@@ -75,7 +82,7 @@ public class VehicleOption{
 	}
 	
 	/**
-	 * Delete the vehicleoption depending on the vehicleoption id
+	 * Delete the vehicleoption depending on the reservationid
 	 * @param id
 	 */
 	public void DeleteReservationOption(int id){
@@ -127,8 +134,8 @@ public class VehicleOption{
 	}
 	
 	/**
-	 * Return an ArrayList with all the vehicleoptions
-	 * @return
+	 * Get a list with all the vehicleoptions
+	 * @return an arraylist with all the vehicleoptions
 	 */
 	public ArrayList<VehicleOption> all(){
 		// Make a new arraylist to hold all the vehicles.
@@ -168,9 +175,10 @@ public class VehicleOption{
 	}
 	
 	/**
-	 * Return an ArrayList with all the vehicleoptions depending op
-	 * the reservation id
-	 * @return
+	 * Return an ArrayList with all the vehicleoptions that belong to the reservation
+	 * depending op the reservation id
+	 * @param id
+	 * @return a list with the options that belong to a reservation
 	 */
 	public ArrayList<Integer> all(int id){
 		// Make a new arraylist to hold all the vehicles.
@@ -208,7 +216,7 @@ public class VehicleOption{
 	/**
 	 * Get the vehicleoption information per given id
 	 * @param id
-	 * @return
+	 * @return an option that belongs to the id
 	 */
 	public VehicleOption getByID(int id){
 		// Declare a new model
@@ -247,30 +255,49 @@ public class VehicleOption{
 	}
 
 	/**
-	 * ======================================
-	 * Getters and setters
-	 * ======================================
+	 * Get the option id
+	 * @return the id of an option
 	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Set the id of an option
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Get te name of an option
+	 * @return the name that belong to the option
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set the name of the option
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Get the price of the option
+	 * @return the price of the option
+	 */
 	public double getPrice() {
 		return price;
 	}
 
+	/**
+	 * Set the price of the option
+	 * @param price
+	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}

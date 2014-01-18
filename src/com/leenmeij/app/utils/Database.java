@@ -9,7 +9,7 @@ import java.util.Properties;
  * A layer between the application and the database. With this class we can
  * connect and disconnect from the database.
  * 
- * @author Deam
+ * @author Deam Kop (s1075228)
  */
 public class Database {
 
@@ -60,10 +60,18 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Get the connection
+	 * @return the connection to the database
+	 */
 	public Connection getConnection() {
 		return connection;
 	}
 
+	/**
+	 * Set the connection to the database
+	 * @param connection
+	 */
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}

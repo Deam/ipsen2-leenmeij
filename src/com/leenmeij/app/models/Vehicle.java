@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import com.leenmeij.app.utils.Database;
 
 /**
- * This class handles all the database features for the vehicle model.
+ * This class handles all the database features for the vehicle model like:
+ * Inserting, updating, deleting and arraylists.
+ * Here we also check if the vehicle can be rented
  * 
- * @author Deam
+ * @author Deam Kop
  * 
  */
 public class Vehicle {
@@ -68,6 +70,12 @@ public class Vehicle {
 		}
 	}
 	
+	/**
+	 * Check for duplicates when insertin in to the database
+	 * So we can prevent double entries
+	 * @param vehicle
+	 * @return true if the vehicle is unique
+	 */
 	public boolean checkDuplicates(Vehicle vehicle){
 	
 		for (Vehicle v : vehicle.all()) {
@@ -151,7 +159,7 @@ public class Vehicle {
 	/**
 	 * Return an ArrayList with all the vehicles
 	 * 
-	 * @return
+	 * @return a list with all the vehicle information we need
 	 */
 	public ArrayList<Vehicle> all() {
 		// Make a new arraylist to hold all the vehicles.
@@ -203,9 +211,9 @@ public class Vehicle {
 	}
 	
 	/**
-	 * Return an ArrayList with all the vehicles
+	 * Return an ArrayList with the last 15 vehicles
 	 * 
-	 * @return
+	 * @return an arraylist with vehicleinformation for the 15 last added vehicles
 	 */
 	public ArrayList<Vehicle> latest() {
 		// Make a new arraylist to hold all the vehicles.
@@ -258,7 +266,7 @@ public class Vehicle {
 
 	/**
 	 * Gets all the reservations that are linked to the vehicle.
-	 * 
+	 * @param id
 	 * @return A list filled with reservations.
 	 */
 	@SuppressWarnings("deprecation")
@@ -319,8 +327,9 @@ public class Vehicle {
 
 	/**
 	 * Return an ArrayList with all the vehicles
-	 * 
-	 * @return
+	 * @param startdate
+	 * @param enddate
+	 * @return an arraylist with vehicles that are available with the given dates
 	 */
 	public ArrayList<Vehicle> allAvailable(Date startdate, Date enddate) {
 		// Make a new array list to hold all the vehicles that are available.
@@ -361,7 +370,7 @@ public class Vehicle {
 	 * Return a single category name by id
 	 * 
 	 * @param id
-	 * @return
+	 * @return a string with the vehiclecategory
 	 */
 	public String getSingleCategory(int id) {
 		String category = "";
@@ -399,7 +408,7 @@ public class Vehicle {
 	/**
 	 * Get all categories for filling comboboxes
 	 * 
-	 * @return
+	 * @return an arraylist filled with all the vehiclecategories
 	 */
 	public ArrayList<String> getAllCategories() {
 		// Declare a new list
@@ -467,6 +476,11 @@ public class Vehicle {
 		database.close();
 	}
 
+	/**
+	 * Check if a vehicle is available
+	 * @param vehicleID
+	 * @return true if the vehilce is available
+	 */
 	public boolean checkAvailability(int vehicleID) {
 		// Make an empty result set
 		ResultSet set = null;
@@ -499,10 +513,10 @@ public class Vehicle {
 	}
 
 	/**
-	 * Get a vehicle by id
+	 * Get the vehicle information by id that is passed trough
 	 * 
 	 * @param id
-	 * @return
+	 * @return the vehicle information for the selected vehicle
 	 */
 	public Vehicle getById(int id) {
 		// Declare a new model
@@ -556,7 +570,7 @@ public class Vehicle {
 	 * passed trough.
 	 * 
 	 * @param name
-	 * @return A vehicle object.
+	 * @return an arraylist with the searched vehicle object.
 	 */
 	public ArrayList<Vehicle> search(String name) {
 		ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
@@ -609,102 +623,193 @@ public class Vehicle {
 	}
 
 	/**
-	 * Getters and setters for the vehicle model
-	 * 
-	 * @return
+	 * Get the id
+	 * @return the id for the vehicle
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Set the vehicle id
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Get the vehiclebrand
+	 * @return the brand of the vehicle
 	 */
 	public String getBrand() {
 		return brand;
 	}
 
+	/**
+	 * Set the brand for the vehicle
+	 * @param brand
+	 */
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/**
+	 * Get the vehicle model
+	 * @return the model of the vehicle
+	 */
 	public String getModel() {
 		return model;
 	}
 
+	/**
+	 * Set the model of the vehicle
+	 * @param model
+	 */
 	public void setModel(String model) {
 		this.model = model;
 	}
 
+	/**
+	 * Get the milage
+	 * @return the milage of the vehicle
+	 */
 	public int getMilage() {
 		return milage;
 	}
-
+	
+	/**
+	 * Set the milage for the vehicle
+	 * @param milage
+	 */
 	public void setMilage(int milage) {
 		this.milage = milage;
 	}
 
+	/**
+	 * Get the licenseplat
+	 * @return the licenseplate for the vehicle
+	 */
 	public String getLicenseplate() {
 		return licenseplate;
 	}
 
+	/**
+	 * Set the licenseplate of the vehicle
+	 * @param licenseplate
+	 */
 	public void setLicenseplate(String licenseplate) {
 		this.licenseplate = licenseplate;
 	}
 
+	/**
+	 * Get the comments
+	 * @return the comments for the vehicle
+	 */
 	public String getComment() {
 		return comment;
 	}
 
+	/**
+	 * Set the comment for the vehicle
+	 * @param comment
+	 */
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
+	/**
+	 * get the hourly rate
+	 * @return the hourly rate of the vehicle
+	 */
 	public double getHourlyrate() {
 		return hourlyrate;
 	}
 
+	/**
+	 * Set the hourly rate of the vehicle
+	 * @param hourlyrate
+	 */
 	public void setHourlyrate(double hourlyrate) {
 		this.hourlyrate = hourlyrate;
 	}
 
+	/**
+	 * Get the vehiclecategory id
+	 * @return the id of the category that the vehicle belongs to
+	 */
 	public int getVehiclecategoryid() {
 		return vehiclecategoryid;
 	}
 
+	/**
+	 * Set the category of the vehicle that it belongs to
+	 * @param vehiclecategoryid
+	 */
 	public void setVehiclecategoryid(int vehiclecategoryid) {
 		this.vehiclecategoryid = vehiclecategoryid;
 	}
 
+	/**
+	 * Get the locked status
+	 * @return if the vehicle is locked or not
+	 */
 	public int getLocked() {
 		return locked;
 	}
 
+	/**
+	 * Set the vehicle locked or unlocked
+	 * @param locked
+	 */
 	public void setLocked(int locked) {
 		this.locked = locked;
 	}
 
+	/**
+	 * Get the imagename
+	 * @return the imagename of the vehicle
+	 */
 	public String getImage() {
 		return image;
 	}
 
+	/**
+	 * Set the imagename of the vehicle
+	 * @param image
+	 */
 	public void setImage(String image) {
 		this.image = image;
 	}
 
+	/**
+	 * Get the color
+	 * @return the color of the vehicle
+	 */
 	public String getColor() {
 		return color;
 	}
 
+	/**
+	 * Set the color of the vehicle
+	 * @param color
+	 */
 	public void setColor(String color) {
 		this.color = color;
 	}
 
+	/**
+	 * Get the usage
+	 * @return the usage of the vehicle
+	 */
 	public int getVehicleUsage() {
 		return vehicleUsage;
 	}
 
+	/**
+	 * Set the vehicleusage
+	 * @param vehicleUsage
+	 */
 	public void setVehicleUsage(int vehicleUsage) {
 		this.vehicleUsage = vehicleUsage;
 	}
