@@ -3,13 +3,13 @@
 
 Remake of IPSEN2 project for fictional rentalcompany
 
-### Contributors
+## Contributors
 @Deam
 @Gielert
 @nickbosland
 @rocksupernova
 
-### Contributing
+## Contributing
 Bugs and new features should be submitted using [Github issues](https://github.com/deam/ipsen2-leenmeij/issues/new)
 
 ## How-to
