@@ -271,6 +271,8 @@ public class ReservationController implements ActionListener, WindowListener{
 					addReservation.dispose();
 					
 					vehicle.setVehicleAvailable(vehicleID, false);
+					
+					MainController.update();
 				} catch(Exception ex){
 					JOptionPane.showMessageDialog(null, "Er missen gegevens, controleer de invoer het probeer het opnieuw");
 				}

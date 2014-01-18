@@ -149,6 +149,9 @@ public class VehicleController implements ActionListener{
 					vehicle.Insert(vehicle);
 					
 					JOptionPane.showMessageDialog(null, "Het voertuig is succesvol toegevoegd.");
+					
+					// Update the tables in main
+					MainController.update();
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controleer de gegevens en probeer het opnieuw.");
 				}
@@ -203,6 +206,9 @@ public class VehicleController implements ActionListener{
 					editVehicle.dispose();
 					
 					JOptionPane.showMessageDialog(null, "Het voertuig is succesvol aangepast");
+					
+					// Update the tables in main
+					MainController.update();
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controleer de gegevens en probeer het opnieuw.");
 				}

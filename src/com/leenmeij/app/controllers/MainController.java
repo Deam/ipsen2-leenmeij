@@ -12,7 +12,7 @@ import com.leenmeij.app.views.Main;
  */
 public class MainController implements ActionListener {
 
-	private Main main;
+	private static Main main;
 
 	// Declare a new vehicle controller for adding
 	private VehicleController vehicleController = new VehicleController();
@@ -88,5 +88,15 @@ public class MainController implements ActionListener {
 		else if(e.getSource() == main.invoiceMenuItem){
 			invoiceController.getOverview();
 		}
+	}
+	
+	/**
+	 * Update all the tables in the main view when something happens
+	 */
+	public static void update(){		
+		main.usersPanel.setViewportView(UserController.getLatestCustomerTable());
+		main.vehiclePanel.setViewportView(VehicleController.getLatestVehicleTable());
+		main.reservationsPanel.setViewportView(ReservationController.getLatestReservationTable());
+		main.invoicePanel.setViewportView(InvoiceController.getLatestInvoiceTable());
 	}
 }

@@ -154,6 +154,9 @@ public class UserController implements ActionListener {
 			addUser.dispose();
 			
 			userOverview.tablePanel.setViewportView(getCustomerTable());
+			
+			// Update the tables in main
+			MainController.update();
 		}
 
 		/**
@@ -187,6 +190,9 @@ public class UserController implements ActionListener {
 			editUser.dispose();
 
 			userOverview.tablePanel.setViewportView(getCustomerTable());
+			
+			// Update the tables in main
+			MainController.update();
 		}
 
 		else if (e.getSource() == userOverview.editButton) {
@@ -207,6 +213,9 @@ public class UserController implements ActionListener {
 					.getValueAt(customerTable.getSelectedRow(), 0).toString()));
 			
 			userOverview.tablePanel.setViewportView(getCustomerTable());
+			
+			// Update the tables in main
+			MainController.update();
 		}
 	}
 	
