@@ -35,7 +35,7 @@ import com.leenmeij.app.views.vehicle.AddDamage;
 /**
  * Here we handle showing screens, actionlistners and other events
  * We also make a few tables, and calculations for prices and such
- * @author Deam
+ * @author Deam Kop (s1075228)
  *
  */
 public class ReservationController implements ActionListener, WindowListener{
@@ -62,9 +62,9 @@ public class ReservationController implements ActionListener, WindowListener{
 	private double dayprice = 0;
 
 	/**
-	 * ========================================================================
-	 * Declare the Views and ActionListners for the views
-	 * ========================================================================
+	 * Make the view for adding reservations
+	 * Declare the actionlisteners, and add a windowlistener
+	 * for catching the closingoperation
 	 */
 	public void getAddReservations() {
 		addReservation = new AddReservation();
@@ -77,6 +77,11 @@ public class ReservationController implements ActionListener, WindowListener{
 		addOptions();
 	}
 
+	/**
+	 * Get the view for selecting a customer
+	 * Set the table in the view
+	 * Set the actionlistener
+	 */
 	public void getSelectCustomer() {
 		selectCustomer = new SelectCustomer();
 		selectCustomer.tablePanel.setViewportView(UserController.getCustomerTable());
@@ -85,6 +90,11 @@ public class ReservationController implements ActionListener, WindowListener{
 		selectCustomer.setVisible(true);
 	}
 
+	/**
+	 * Get the view for selecting a vehicle
+	 * Set the table in the view
+	 * Set the actionlistener
+	 */
 	public void getSelectVehicle() {
 		selectVehicle = new SelectVehicle();
 		selectVehicle.tablePanel.setViewportView(VehicleController.getVehicleDateTable(addReservation.startDatePicker.getDate(), addReservation.endDatePicker.getDate()));
@@ -92,6 +102,11 @@ public class ReservationController implements ActionListener, WindowListener{
 		selectVehicle.setVisible(true);
 	}
 	
+	/**
+	 * Get the view for the reservation overview
+	 * Set the table in the view
+	 * Set the actionlistener
+	 */
 	public void getViewReservations() {
 		viewReservation = new ViewReservation();
 		viewReservation.tablePanel.setViewportView(getReservationTable());
@@ -168,6 +183,11 @@ public class ReservationController implements ActionListener, WindowListener{
 		}
 	}
 	
+	/**
+	 * Show the view for adding damage to a vehicle
+	 * Declare the actionlisteners and set the text to the textfields
+	 * @param id
+	 */
 	public void showAddDamage(int id){
 		// Declare the view
 		addDamage = new AddDamage();
@@ -241,9 +261,7 @@ public class ReservationController implements ActionListener, WindowListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		/**
-		 * ====================================================================
 		 * Add reservation actionlistners
-		 * ====================================================================
 		 */
 		if (addReservation != null) {
 			if (e.getSource() == addReservation.selectCustomerButton) {
@@ -335,9 +353,7 @@ public class ReservationController implements ActionListener, WindowListener{
 			}
 		}
 		/**
-		 * ====================================================================
 		 * Customer selection actionlistner
-		 * ====================================================================
 		 */
 		if (selectCustomer != null) {
 			if (e.getSource() == selectCustomer.searchButton) {
@@ -374,9 +390,7 @@ public class ReservationController implements ActionListener, WindowListener{
 		}
 
 		/**
-		 * ====================================================================
 		 * Vehicle selection actionlistner
-		 * ====================================================================
 		 */
 		if (selectVehicle != null) {
 			
@@ -440,9 +454,7 @@ public class ReservationController implements ActionListener, WindowListener{
 		}
 		
 		/**
-		 * ====================================================================
 		 * Reservation overview actionlistner
-		 * ====================================================================
 		 */
 		if(viewReservation != null){
 			if(e.getSource() == viewReservation.editButton){
@@ -460,9 +472,7 @@ public class ReservationController implements ActionListener, WindowListener{
 		}
 		
 		/**
-		 * ====================================================================
 		 * Reservation edit actionlistner
-		 * ====================================================================
 		 */
 		if(editReservation != null){
 			if(e.getSource() == editReservation.damageButton){
@@ -510,9 +520,7 @@ public class ReservationController implements ActionListener, WindowListener{
 		}
 		
 		/**
-		 * ====================================================================
 		 * Add damage actionlistner
-		 * ====================================================================
 		 */
 		if(addDamage != null){
 			if(e.getSource() == addDamage.addButton){
@@ -544,15 +552,7 @@ public class ReservationController implements ActionListener, WindowListener{
 	}
 
 	/**
-	 * ==================================================================== 
-	 * Make the JTables we need
-	 * ====================================================================
-	 */
-
-	
-	/**
-	 * Make the vehicleTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the reservationtable for showing the reservation information
 	 */
 	public static JTable getReservationTable() {
 		// Add the columnnames we need
@@ -594,8 +594,7 @@ public class ReservationController implements ActionListener, WindowListener{
 	}
 	
 	/**
-	 * Make the vehicleTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the reservationtable for showing the last 15 reservations
 	 */
 	public static JTable getLatestReservationTable() {
 		// Add the columnnames we need
@@ -638,10 +637,10 @@ public class ReservationController implements ActionListener, WindowListener{
 
 		return reservationTable;
 	}
+	
 	/**
-	 * ====================================================================
-	 * Method for calculating and showing prices
-	 * ====================================================================
+	 * Calculate the prices depending on the days of rental
+	 * @param option
 	 */
 	private void updatePrices(double option){
 		// Initiate the parser
@@ -661,9 +660,7 @@ public class ReservationController implements ActionListener, WindowListener{
 	}
 
 	/**
-	 * ======================================================================
 	 * Window events for setting vehicles available after aborting
-	 * ======================================================================
 	 */
 	@Override
 	public void windowActivated(WindowEvent e) {

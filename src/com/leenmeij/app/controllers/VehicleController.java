@@ -21,9 +21,13 @@ import com.leenmeij.app.views.vehicle.AddVehicle;
 import com.leenmeij.app.views.vehicle.EditVehicle;
 import com.leenmeij.app.views.vehicle.Overview;
 
+/**
+ * Here we handle showing screens, actionlistners and other events
+ * We also make a few tables, and the defaultcombobox for the categories
+ * @author Deam Kop (s1075228)
+ *
+ */
 public class VehicleController implements ActionListener{
-
-	private Vehicle vehicle;
 
 	private AddVehicle addVehicle;
 	private EditVehicle editVehicle;
@@ -31,10 +35,10 @@ public class VehicleController implements ActionListener{
 	
 	public static JTable vehicleTable;
 
-	public VehicleController() {
-		vehicle = new Vehicle();
-	}
-
+	/**
+	 * Get the add vehicle view
+	 * Add the actionlisteners
+	 */
 	public void getAddVehicle() {
 		addVehicle = new AddVehicle();
 
@@ -43,19 +47,25 @@ public class VehicleController implements ActionListener{
 
 		addVehicle.setVisible(true);
 	}
-
+	
+	/**
+	 * Get the vehicle edit view depending on the id we pass trough
+	 * Add the actionlisteners and the JTable
+	 * @param id
+	 */
 	public void getEditVehicle(int id) {
 		// Create new view, set the actionlisteners and visibility.
 		editVehicle = new EditVehicle();
-
+		// Add the actionlisteners
 		editVehicle.editButton.addActionListener(this);
 		editVehicle.selectImageButton.addActionListener(this);
-		
+		// Set the damagehistory
 		editVehicle.damagePanels.setViewportView(VehicleDamageController.getDamageTable(id));
-
+		// Set the view visible
 		editVehicle.setVisible(true);
 
 		// Get vehicle from the database.
+		Vehicle vehicle = new Vehicle();
 		vehicle = vehicle.getById(id);
 
 		// Set information in view.
@@ -75,11 +85,16 @@ public class VehicleController implements ActionListener{
 				.getHourlyrate()));
 		editVehicle.commentArea.setText(vehicle.getComment());
 		
+		// Set the checkbox checked if the vehicle is locked
 		if(vehicle.getLocked() == 1){
 			editVehicle.availableCheckBox.setSelected(true);
 		}
 	}
 
+	/**
+	 * Get the vehicle overview
+	 * Add the JTable and actionlisteners to it
+	 */
 	public void getOverview() {
 		vehicleOverview = new Overview();
 		vehicleOverview.tablePanel.setViewportView(getVehicleTable());
@@ -88,13 +103,14 @@ public class VehicleController implements ActionListener{
 		vehicleOverview.setVisible(true);
 	}
 
+	/**
+	 * Actionlisteners for vehicle related views
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		/**
-		 * ====================================================================
-		 * Add vehicle
-		 * ====================================================================
+		 * Add vehicle actionlisteners
 		 */
 		if (addVehicle != null) {
 			if (e.getSource() == addVehicle.selectImageButton) {
@@ -168,13 +184,12 @@ public class VehicleController implements ActionListener{
 		}
 
 		/**
-		 * ====================================================================
 		 * Edit vehicle
-		 * ====================================================================
 		 */
 		if (editVehicle != null) {
 			if (e.getSource() == editVehicle.editButton) {
 				try {
+					// Set the model information
 					Vehicle vehicle = new Vehicle();
 					vehicle.setId(Integer.parseInt(editVehicle.idTextField
 							.getText()));
@@ -193,6 +208,7 @@ public class VehicleController implements ActionListener{
 					vehicle.setVehicleUsage(Integer.parseInt(editVehicle.usageText
 							.getText()));
 
+					// If the picturelabel is changed, upload the new image
 					if (!editVehicle.pictureLabel.getText().equals(
 							"Gekozen afbeelding..")) {
 						try {
@@ -204,19 +220,22 @@ public class VehicleController implements ActionListener{
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
+					// Else the image is unchanged
 					} else {
 						vehicle.setImage(editVehicle.imageTextField.getText());
 					}
-
+					// Update the vehicle
 					vehicle.Update(vehicle);
 					
+					// If the checkbox is nog selected, make the vehicle availble
 					if(!editVehicle.availableCheckBox.isSelected()){
 						vehicle.setVehicleAvailable(Integer.parseInt(editVehicle.idTextField
 							.getText()), false);
 					}
 
+					// Dipose the view
 					editVehicle.dispose();
-					
+					// Show a succesmessage
 					JOptionPane.showMessageDialog(null, "Het voertuig is succesvol aangepast");
 					
 					// Update the tables in main
@@ -224,10 +243,11 @@ public class VehicleController implements ActionListener{
 					vehicleOverview.tablePanel.setViewportView(getVehicleTable());
 					
 				} catch (NumberFormatException e1) {
+					// Show an error message
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controleer de gegevens en probeer het opnieuw.");
 				}
 			}
-
+			// Get the imageselector
 			else if (e.getSource() == editVehicle.selectImageButton) {
 				JFileChooser chooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -245,6 +265,10 @@ public class VehicleController implements ActionListener{
 			}
 		}
 
+		/**
+		 * Get the vehicle edit view
+		 * pass the id of the selected vehicle
+		 */
 		if (vehicleOverview != null) {
 			if (e.getSource() == vehicleOverview.editButton) {			
 				try {
@@ -256,7 +280,7 @@ public class VehicleController implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Selecteer een voertuig", "Fout", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-
+			// Delete the vehicle
 			else if (e.getSource() == vehicleOverview.deleteButton) {
 				Vehicle vehicle = new Vehicle();
 
@@ -273,7 +297,7 @@ public class VehicleController implements ActionListener{
 	/**
 	 * Makes a DefaultComboBoxModel, filled with the vehicle categories.
 	 * 
-	 * @return
+	 * @return A DefaultComboBox with the categories
 	 */
 	public static DefaultComboBoxModel<String> categoryItems() {
 		Vector<String> comboboxItemsVector = new Vector<String>();
@@ -291,8 +315,7 @@ public class VehicleController implements ActionListener{
 	}
 	
 	/**
-	 * Make the vehicleTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the vehicleTable for showing the vehicle information
 	 */
 	public static JTable getVehicleTable() {
 		// Add the columnnames we need
@@ -330,8 +353,7 @@ public class VehicleController implements ActionListener{
 	}
 	
 	/**
-	 * Make the vehicleTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the vehicleTable for showing the last 15 entries
 	 */
 	public static JTable getLatestVehicleTable() {
 		// Add the columnnames we need
@@ -368,9 +390,12 @@ public class VehicleController implements ActionListener{
 		return vehicleTable;
 	}
 	
+
 	/**
-	 * Make the vehicleTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the vehicleTable for showing the vehicle information, and selecting the desired vehicle
+	 * @param startdate
+	 * @param enddate
+	 * @return a table with the vehicles available within the given dates
 	 */
 	public static JTable getVehicleDateTable(Date startdate, Date enddate) {
 		// Add the columnnames we need
@@ -411,8 +436,9 @@ public class VehicleController implements ActionListener{
 	}
 
 	/**
-	 * Make the customerTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the vehicleTable for showing the vehicle information, and selecting the desired vehicle
+	 * @param name
+	 * @return a table filled with vehicles that contain a part of the search name
 	 */
 	public static JTable getSearchVehicleTable(String name) {
 		// Add the columnnames we need

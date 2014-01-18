@@ -15,10 +15,10 @@ import com.leenmeij.app.views.reservations.InvoiceOverview;
 /**
  * Invoicecontroller handles the showing of the overview
  * as wel as creating the desired tables
- * @author Deam
- *
+ * @author Deam Kop (s1075228)
  */
 public class InvoiceController {
+	
 	private static JTable invoiceTable;
 	
 	private InvoiceOverview overview;
@@ -33,7 +33,8 @@ public class InvoiceController {
 	}
 	
 	/**
-	 * Make the invoicetable for the overview
+	 * Make a static JTable so we can get it in any class we want
+	 * @return A JTable filled with information about the invoices.
 	 */
 	public static JTable getInvoiceTable() {
 		// Add the columnnames we need
@@ -51,7 +52,7 @@ public class InvoiceController {
 		Invoice invoice = new Invoice();
 		for (Invoice v : invoice.all()) {
 			Vector<String> data = new Vector<>();
-
+			// Add the invoice id
 			data.add(Integer.toString(v.getId()));
 			
 			// Get the user information
@@ -69,7 +70,7 @@ public class InvoiceController {
 			// Set the formatters
 			SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
 			DecimalFormat doubleFormatter = new DecimalFormat("#.00");
-			
+
 			data.add(format.format(v.getStartdate()));
 			data.add(format.format(v.getEnddate()));
 			data.add("€ " + doubleFormatter.format(v.getPrice()));
@@ -87,7 +88,8 @@ public class InvoiceController {
 	}
 	
 	/**
-	 * Make the invoicetable for the main view
+	 * Make a static JTable so we can get it in any class we want
+	 * @return A JTable filled with information about the last 15 invoices.
 	 */
 	public static JTable getLatestInvoiceTable() {
 		// Add the columnnames we need

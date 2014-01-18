@@ -8,8 +8,7 @@ import com.leenmeij.app.views.Main;
 /**
  * Main class, here we show the tables with some information
  * as well as the menubar to select the options from.
- * @author Deam
- *
+ * @author Deam Kop (s1075228)
  */
 public class MainController implements ActionListener {
 
@@ -21,7 +20,7 @@ public class MainController implements ActionListener {
 	private ReservationController reservationController = new ReservationController();
 	private UserController userController = new UserController();
 	private InvoiceController invoiceController = new InvoiceController();
-	
+	// Variable for usermail
 	public String userEmail;
 
 	/**
@@ -46,6 +45,8 @@ public class MainController implements ActionListener {
 		else if (role.equals("Garage")) {
 			main.usersItem.setVisible(false);
 		}
+		main.logoutItem.addActionListener(this);
+		main.quitItem.addActionListener(this);
 		
 		main.addReservationItem.addActionListener(this);
 		main.addUserItem.addActionListener(this);
@@ -58,17 +59,17 @@ public class MainController implements ActionListener {
 		
 		main.invoiceMenuItem.addActionListener(this);
 		
+		// Set the tables to the jscrollpanels
 		main.usersPanel.setViewportView(UserController.getLatestCustomerTable());
 		main.vehiclePanel.setViewportView(VehicleController.getLatestVehicleTable());
 		main.reservationsPanel.setViewportView(ReservationController.getLatestReservationTable());
 		main.invoicePanel.setViewportView(InvoiceController.getLatestInvoiceTable());
 	}
+	
 	/**
-	 * =================================================
-	 * Actionlisteners
-	 * =================================================
+	 * Actionlisteners for the mainview
+	 * These are for the menuitems
 	 */
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == main.addVehicleItem) {
@@ -109,6 +110,15 @@ public class MainController implements ActionListener {
 		
 		else if(e.getSource() == main.invoiceMenuItem){
 			invoiceController.getOverview();
+		}
+		
+		else if(e.getSource() == main.logoutItem){
+			main.dispose();
+			userController.initLogin();
+		}
+		
+		else if(e.getSource() == main.quitItem){
+			main.dispose();
 		}
 	}
 	

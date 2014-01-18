@@ -1,5 +1,6 @@
 package com.leenmeij.app.controllers;
 
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -14,6 +15,12 @@ import com.leenmeij.app.views.users.EditUser;
 import com.leenmeij.app.views.users.Login;
 import com.leenmeij.app.views.users.Overview;
 
+/**
+ * Here we handle showing screens, actionlistners and other events
+ * We also make a few tables
+ * @author Deam Kop (s1075228)
+ *
+ */
 public class UserController implements ActionListener {
 
 	// Create the views.
@@ -53,6 +60,7 @@ public class UserController implements ActionListener {
 	 * Initialize the add user view and also makes the view visible.
 	 */
 	public void getAdd() {
+		addUser = new AddUser();
 		// Add the action listener.
 		addUser.addButton.addActionListener(this);
 
@@ -91,6 +99,9 @@ public class UserController implements ActionListener {
 		editUser.vatNumberTextField.setText(user.getVatNumber());
 	}
 
+	/**
+	 * Get the overview for the users
+	 */
 	public void getOverview() {
 		userOverview = new Overview();
 		userOverview.tablePanel.setViewportView(getCustomerTable());
@@ -99,105 +110,119 @@ public class UserController implements ActionListener {
 		userOverview.setVisible(true);
 	}
 
+	/**
+	 * Actionlisteners for the user views
+	 */
 	@Override
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) {
 
 		/**
-		 * ====================================================================
 		 * Login view
-		 * ====================================================================
 		 */
 		if (e.getSource() == login.loginButton) {
 			if (user.checkLogin(login.emailTextField.getText(), login.passwordField.getText())) {
+				// If the user is legit, show the main view
 				MainController controller = new MainController();
+				// Set the user string
 				controller.userEmail = login.emailTextField.getText();
+				// SHow the view
 				controller.showMainView();
 
 				// Dispose the loginscreen
 				login.dispose();
 			} else {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"Uw e-mail en wachtwoord combinatie is onjuist, probeer het opnieuw.",
-								"Fout", JOptionPane.ERROR_MESSAGE);
+				// Show an errormessage
+				JOptionPane.showMessageDialog(null,"Uw e-mail en wachtwoord combinatie is onjuist, probeer het opnieuw.","Fout", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-
+		
 		else if (e.getSource() == login.cancelButton) {
+			// Dispose the login view
 			login.dispose();
 		}
 
 		/**
-		 * ====================================================================
 		 * Add user view
-		 * ====================================================================
 		 */
 		else if (e.getSource() == addUser.addButton) {
-			user.setEmail(addUser.emailTextField.getText());
-			user.setFirstName(addUser.firstNameTextField.getText());
-			user.setLastName(addUser.lastNameTextField.getText());
-			user.setAddressLineOne(addUser.addressLineOneTextField.getText());
-			user.setAddressLineTwo(addUser.addressLineTwoTextField.getText());
-			user.setCity(addUser.cityTextField.getText());
-			user.setZipCode(addUser.zipCodeTextField.getText());
-			user.setCountry(addUser.countryTextField.getText());
-			user.setPhoneNumber(addUser.phoneNumberTextField.getText());
-			user.setLicenseNumber(addUser.licenseNumberTextField.getText());
-			user.setPassportNumber(addUser.passportNumberTextField.getText());
-			user.setKvkNumber(addUser.kvkNumberTextField.getText());
-			user.setVatNumber(addUser.vatNumberTextField.getText());
-
-			user.save(user);
-
-			JOptionPane.showMessageDialog(null,
-					"Gebruiker succesvol aangemaakt", "Succes",
-					JOptionPane.INFORMATION_MESSAGE);
-
-			addUser.dispose();
-			
-			userOverview.tablePanel.setViewportView(getCustomerTable());
-			
-			// Update the tables in main
-			MainController.update();
+			try{
+				// Try and set the user information to the database
+				user = new User();
+				user.setEmail(addUser.emailTextField.getText());
+				user.setFirstName(addUser.firstNameTextField.getText());
+				user.setLastName(addUser.lastNameTextField.getText());
+				user.setAddressLineOne(addUser.addressLineOneTextField.getText());
+				user.setAddressLineTwo(addUser.addressLineTwoTextField.getText());
+				user.setCity(addUser.cityTextField.getText());
+				user.setZipCode(addUser.zipCodeTextField.getText());
+				user.setCountry(addUser.countryTextField.getText());
+				user.setPhoneNumber(addUser.phoneNumberTextField.getText());
+				user.setLicenseNumber(addUser.licenseNumberTextField.getText());
+				user.setPassportNumber(addUser.passportNumberTextField.getText());
+				user.setKvkNumber(addUser.kvkNumberTextField.getText());
+				user.setVatNumber(addUser.vatNumberTextField.getText());
+				// Save the user information
+				user.save(user);
+				// Show a succesmessage
+				JOptionPane.showMessageDialog(null,
+						"Gebruiker succesvol aangemaakt", "Succes",
+						JOptionPane.INFORMATION_MESSAGE);
+				// Dispose the adduser view
+				addUser.dispose();
+								
+				// Update the tables in main
+				MainController.update();
+			} catch(Exception e1){
+				// Show an errormessage
+				JOptionPane.showMessageDialog(null, "Er zijn incorrecte gegevens ingevuld, controleer de gegevens en probeer het opnieuw");
+			}
 		}
 
 		/**
-		 * ====================================================================
 		 * Edit user view
-		 * ====================================================================
 		 */
 		else if (e.getSource() == editUser.editButton) {
-			user = new User();
-
-			user.setId(Integer.parseInt(editUser.idTextField.getText()));
-			user.setEmail(editUser.emailTextField.getText());
-			user.setFirstName(editUser.firstNameTextField.getText());
-			user.setLastName(editUser.lastNameTextField.getText());
-			user.setAddressLineOne(editUser.addressLineOneTextField.getText());
-			user.setAddressLineTwo(editUser.addressLineTwoTextField.getText());
-			user.setCity(editUser.cityTextField.getText());
-			user.setZipCode(editUser.zipCodeTextField.getText());
-			user.setCountry(editUser.countryTextField.getText());
-			user.setPhoneNumber(editUser.phoneNumberTextField.getText());
-			user.setLicenseNumber(editUser.licenseNumberTextField.getText());
-			user.setPassportNumber(editUser.passportNumberTextField.getText());
-			user.setKvkNumber(editUser.kvkNumberTextField.getText());
-			user.setVatNumber(editUser.vatNumberTextField.getText());
-
-			user.update(user);
-
-			JOptionPane.showMessageDialog(null, "Gebruiker is bijgewerkt",
-					"Succes", JOptionPane.INFORMATION_MESSAGE);
-
-			editUser.dispose();
-			
-			// Update the tables in main
-			MainController.update();
-			userOverview.tablePanel.setViewportView(getCustomerTable());
+			// Try to edit the user
+			try {
+				// Declare a new user
+				user = new User();
+				// Set the updated user information
+				user.setId(Integer.parseInt(editUser.idTextField.getText()));
+				user.setEmail(editUser.emailTextField.getText());
+				user.setFirstName(editUser.firstNameTextField.getText());
+				user.setLastName(editUser.lastNameTextField.getText());
+				user.setAddressLineOne(editUser.addressLineOneTextField.getText());
+				user.setAddressLineTwo(editUser.addressLineTwoTextField.getText());
+				user.setCity(editUser.cityTextField.getText());
+				user.setZipCode(editUser.zipCodeTextField.getText());
+				user.setCountry(editUser.countryTextField.getText());
+				user.setPhoneNumber(editUser.phoneNumberTextField.getText());
+				user.setLicenseNumber(editUser.licenseNumberTextField.getText());
+				user.setPassportNumber(editUser.passportNumberTextField.getText());
+				user.setKvkNumber(editUser.kvkNumberTextField.getText());
+				user.setVatNumber(editUser.vatNumberTextField.getText());
+				// Update the user
+				user.update(user);
+				// Show a succesmessage
+				JOptionPane.showMessageDialog(null, "Gebruiker is bijgewerkt",
+						"Succes", JOptionPane.INFORMATION_MESSAGE);
+				// Close the edit user screen
+				editUser.dispose();
+				
+				// Update the tables in main
+				MainController.update();
+				userOverview.tablePanel.setViewportView(getCustomerTable());
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(null, "Er is een foutief nummer ingevoerd, controller de gegevens en probeer het opnieuw");
+			} catch (HeadlessException e1) {
+				JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controller de gegevens en probeer het opnieuw");
+			}
 		}
-
+		
+		/**
+		 * User overview actionlisteners
+		 */
 		else if (e.getSource() == userOverview.editButton) {
 			try {
 				System.err.println(customerTable.getModel()
@@ -211,6 +236,9 @@ public class UserController implements ActionListener {
 			}
 		}
 
+		/**
+		 * Delete the selected user in de useroverview
+		 */
 		else if (e.getSource() == userOverview.deleteButton) {
 			// Declare the user
 			User user = new User();
@@ -226,8 +254,7 @@ public class UserController implements ActionListener {
 	}
 	
 	/**
-	 * Make the customerTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the customerTable when we search for a customer
 	 */
 	public static JTable getSearchCustomerTable(String name) {
 		// Add the columnnames we need
@@ -260,8 +287,7 @@ public class UserController implements ActionListener {
 	}
 
 	/**
-	 * Make the customerTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the customerTable for showing all the user information
 	 */
 	public static JTable getCustomerTable() {
 		// Add the columnnames we need
@@ -296,8 +322,7 @@ public class UserController implements ActionListener {
 	}
 	
 	/**
-	 * Make the customerTable for making the selection whilst we are making a
-	 * reservation.
+	 * Make the customertable for the last 15 added users
 	 */
 	public static JTable getLatestCustomerTable() {
 		// Add the columnnames we need

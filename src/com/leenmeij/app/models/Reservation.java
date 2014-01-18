@@ -162,10 +162,8 @@ public class Reservation {
 				reservation.setUserId(set.getInt("user_id"));
 				reservation.setVehicleId(set.getInt("vehicle_id"));
 				
-				SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
-				
-				reservation.setStartDate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
-				reservation.setEndDate(new java.sql.Date(format.parse(set.getString("enddate")).getTime()));
+				reservation.setStartDate(new java.sql.Date(new java.util.Date(set.getString("startdate")).getTime()));
+				reservation.setEndDate(new java.sql.Date(new java.util.Date(set.getString("enddate")).getTime()));
 			}
 
 			// Close the connection
@@ -259,6 +257,7 @@ public class Reservation {
 				
 				reservation.setStartDate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
 				reservation.setEndDate(new java.sql.Date(format.parse(set.getString("enddate")).getTime()));
+				
 				reservation.setStatus(set.getBoolean("status"));
 				reservation.setPickedUp(set.getBoolean("picked_up"));
 				

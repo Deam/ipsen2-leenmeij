@@ -76,6 +76,7 @@ public class Invoice {
 	 * Return a list with all the invoices
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public ArrayList<Invoice> all(){
 		ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
 		
@@ -93,10 +94,8 @@ public class Invoice {
 				invoice.setUser_id(set.getInt("user_id"));
 				invoice.setVehicle_id(set.getInt("vehicle_id"));
 				
-				// Format the dates
-				SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
-				invoice.setStartdate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
-				invoice.setEnddate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
+				invoice.setStartdate(new java.sql.Date(new java.util.Date(set.getString("startdate")).getTime()));
+				invoice.setEnddate(new java.sql.Date(new java.util.Date(set.getString("enddate")).getTime()));
 				
 				invoice.setPrice(set.getDouble("price"));
 				invoice.setTotal(set.getDouble("total"));
@@ -120,6 +119,7 @@ public class Invoice {
 	 * Return the last 15 invoices
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public ArrayList<Invoice> latest(){
 		ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
 		
@@ -137,10 +137,8 @@ public class Invoice {
 				invoice.setUser_id(set.getInt("user_id"));
 				invoice.setVehicle_id(set.getInt("vehicle_id"));
 				
-				// Format the dates
-				SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
-				invoice.setStartdate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
-				invoice.setEnddate(new java.sql.Date(format.parse(set.getString("startdate")).getTime()));
+				invoice.setStartdate(new java.sql.Date(new java.util.Date(set.getString("startdate")).getTime()));
+				invoice.setEnddate(new java.sql.Date(new java.util.Date(set.getString("enddate")).getTime()));
 				
 				invoice.setPrice(set.getDouble("price"));
 				invoice.setTotal(set.getDouble("total"));
