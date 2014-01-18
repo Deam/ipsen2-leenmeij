@@ -4,8 +4,8 @@
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="miglayout-src.zip"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/MySQL Connector J/mysql-connector-java-5.1.28-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Deam/Desktop/swingx-all-1.6.3.jar"/>
 	<classpathentry kind="lib" path="lib/itextpdf-5.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/swingx-all-1.6.3.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.28-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
