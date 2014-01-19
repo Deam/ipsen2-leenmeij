@@ -108,7 +108,7 @@ public class Reservation {
 	/**
 	 * Return a single reservation with the given reservation
 	 * @param reservation
-	 * @return
+	 * @return a single reservation
 	 */
 	public Reservation get(Reservation r){
 		// Declare a model for returning

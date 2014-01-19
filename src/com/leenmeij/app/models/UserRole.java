@@ -1,5 +1,10 @@
 package com.leenmeij.app.models;
 
+/** 
+ * Here we insert, update and get the userroles
+ * depending on the users. This is done so we can add
+ * restrictions depending on the userrole
+ */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -70,7 +75,6 @@ public class UserRole {
 	 * Update a userrole depending on the user
 	 * 
 	 * @param option
-	 * @param id
 	 */
 	public void Update(UserRole role){
 		try {

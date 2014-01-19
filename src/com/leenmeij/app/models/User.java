@@ -402,8 +402,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns a list with all the customers
-	 * @return
+	 * Returns a list with all the users
+	 * @return an arraylist with all the information of the users
 	 */
 	public ArrayList<User> all(){
 		// Make a new list for filling.
@@ -454,8 +454,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns a list with all the customers
-	 * @return
+	 * Returns a list with all the users
+	 * @return an arraylist with the last 15 entries of the user information
 	 */
 	public ArrayList<User> latest(){
 		// Make a new list for filling.
@@ -527,20 +527,15 @@ public class User {
 			// Close the connection
 			database.close();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "TODO: Give a nice overview of all user values.";
 	}
 	
 	/**
-	 * Get a vehicle by id
+	 * Get a user by id
 	 * 
 	 * @param id
-	 * @return
+	 * @return a single uer
 	 */
 	public User getById(int id) {
 		// Declare a new model
