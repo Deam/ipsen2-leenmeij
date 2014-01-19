@@ -126,19 +126,23 @@ public class UserController implements ActionListener {
 		 * Login view
 		 */
 		if (e.getSource() == login.loginButton) {
-			if (user.checkLogin(login.emailTextField.getText(), login.passwordField.getText())) {
-				// If the user is legit, show the main view
-				MainController controller = new MainController();
-				// Set the user string
-				controller.userEmail = login.emailTextField.getText();
-				// SHow the view
-				controller.showMainView();
+			try {
+				if (user.checkLogin(login.emailTextField.getText(), login.passwordField.getText())) {
+					// If the user is legit, show the main view
+					MainController controller = new MainController();
+					// Set the user string
+					controller.userEmail = login.emailTextField.getText();
+					// SHow the view
+					controller.showMainView();
 
-				// Dispose the loginscreen
-				login.dispose();
-			} else {
-				// Show an errormessage
-				JOptionPane.showMessageDialog(null,"Uw e-mail en wachtwoord combinatie is onjuist, probeer het opnieuw.","Fout", JOptionPane.ERROR_MESSAGE);
+					// Dispose the loginscreen
+					login.dispose();
+				} else {
+					// Show an errormessage
+					JOptionPane.showMessageDialog(null,"Uw e-mail en wachtwoord combinatie is onjuist, probeer het opnieuw.","Fout", JOptionPane.ERROR_MESSAGE);
+				}
+			} catch (HeadlessException e1) {
+				JOptionPane.showMessageDialog(null, "Er kan geen vebinding worden gemaakt. Neem contact op met de systeembeheerder.");
 			}
 		}
 		

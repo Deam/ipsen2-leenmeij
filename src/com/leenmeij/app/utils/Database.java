@@ -26,11 +26,11 @@ public class Database {
 			System.err.println("Couldn't load the MySQL JDBC Driver.");
 		}
 
-		// If we could load the PostgreSQL JDBC Driver successfully we can try
+		// If we could load the MySQL JDBC Driver successfully we can try
 		// and store it in a connection object.
 		try {
 			// String for vpn connection @school
-			String url = "jdbc:mysql:145.97.16.202/leenmeij";
+			String url = "jdbc:mysql://145.97.16.202/leenmeij";
 
 			// Set the properties, set username and password.
 			Properties p = new Properties();
