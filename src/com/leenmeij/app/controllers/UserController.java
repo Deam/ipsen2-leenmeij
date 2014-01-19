@@ -169,12 +169,6 @@ public class UserController implements ActionListener {
 				user.setVatNumber(addUser.vatNumberTextField.getText());
 				// Save the user information
 				user.save(user);
-				// Show a succesmessage
-				JOptionPane.showMessageDialog(null,
-						"Gebruiker succesvol aangemaakt", "Succes",
-						JOptionPane.INFORMATION_MESSAGE);
-				// Dispose the adduser view
-				addUser.dispose();
 				
 				// Get a new user model for id passing
 				User u = user.find(addUser.emailTextField.getText());
@@ -184,10 +178,20 @@ public class UserController implements ActionListener {
 				userRole.setUserID(u.getId());
 				userRole.setRoleID(addUser.rolesBox.getSelectedIndex() + 1);
 				// Insert the user
-				userRole.InsertUser(userRole);
-								
-				// Update the tables in main
-				MainController.update();
+				if(u.checkDuplicates(user)){
+					userRole.InsertUser(userRole);
+					// Update the tables in main
+					MainController.update();
+					// Show a succesmessage
+					JOptionPane.showMessageDialog(null,
+							"Gebruiker succesvol aangemaakt", "Succes",
+							JOptionPane.INFORMATION_MESSAGE);
+					// Dispose the adduser view
+					addUser.dispose();
+				} else{
+					JOptionPane.showMessageDialog(null, "Een gebruiker met dit email adres bestaat al in de database");
+				}
+				
 			} catch(Exception e1){
 				// Show an errormessage
 				JOptionPane.showMessageDialog(null, "Er zijn incorrecte gegevens ingevuld, controleer de gegevens en probeer het opnieuw");
@@ -273,7 +277,8 @@ public class UserController implements ActionListener {
 				} else{
 					JOptionPane.showMessageDialog(null, "De systeemadministrator kan niet verwijderd worden.");
 				}
-				
+				// Show a succes message
+				JOptionPane.showMessageDialog(null, "De gebruiker is succesvol verwijdert");
 				// Update the tables in main
 				MainController.update();
 				userOverview.tablePanel.setViewportView(getCustomerTable());

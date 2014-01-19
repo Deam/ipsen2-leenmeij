@@ -65,10 +65,6 @@ public class AddVehicle extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblVoertuigToevoegen = new JLabel("Voertuig toevoegen");
-		lblVoertuigToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		contentPane.add(lblVoertuigToevoegen, BorderLayout.NORTH);
-
 		addButton = new JButton("Toevoegen");
 		addButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		addButton.setForeground(new Color(255, 255, 255));

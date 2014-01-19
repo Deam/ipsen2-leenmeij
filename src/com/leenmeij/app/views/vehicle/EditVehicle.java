@@ -68,10 +68,6 @@ public class EditVehicle extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblVoertuigBewerken = new JLabel("Voertuig bewerken");
-		lblVoertuigBewerken.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		contentPane.add(lblVoertuigBewerken, BorderLayout.NORTH);
-
 		editButton = new JButton("Toepassen");
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		editButton.setForeground(new Color(255, 255, 255));

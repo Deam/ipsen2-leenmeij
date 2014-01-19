@@ -29,8 +29,11 @@ public class MainController implements ActionListener {
 	 * and tables for viewing
 	 */
 	public void showMainView() {
+		// Declare a new view
 		main = new Main(this);
+		// Set the loggedin user
 		main.loggedLabel.setText("Ingelogd als: " + userEmail);
+		// Set the screen visible
 		main.setVisible(true);
 		
 		User user = new User();
@@ -44,6 +47,7 @@ public class MainController implements ActionListener {
 		// Disable features for the garage employee
 		else if (role.equals("Garage")) {
 			main.usersItem.setVisible(false);
+			main.addReservationItem.setVisible(false);
 		}
 		main.logoutItem.addActionListener(this);
 		main.quitItem.addActionListener(this);

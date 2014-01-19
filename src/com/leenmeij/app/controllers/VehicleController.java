@@ -34,7 +34,51 @@ public class VehicleController implements ActionListener{
 	private Overview vehicleOverview;
 	
 	public static JTable vehicleTable;
+	
+	// String for getting the dir we want
+	public static String workDir = "";
+	// String for getting the operating system
+	private String OS = "";
 
+	/**
+	 * Initiate this contructor so we can create a dir to
+	 * write some files to
+	 */
+	public VehicleController(){
+		//here, we assign the name of the OS, according to Java, to a variable...
+		OS = (System.getProperty("os.name")).toUpperCase();
+		//to determine what the workingDirectory is.
+		//if it is some version of Windows
+		if (OS.contains("WIN"))
+		{
+		    //it is simply the location of the "AppData" folder
+			workDir = "C://";
+		}
+		//Otherwise, we assume Linux or Mac
+		else
+		{
+		    //in either case, we would start in the user's home directory
+			workDir = System.getProperty("user.home");
+		    //if we are on a Mac, we are not done, we look for "Application Support"
+			workDir += "/Library//";
+		}
+		//we are now free to set the workingDirectory to the subdirectory that is our 
+		//folder.
+		File folder = new File(workDir + "LeenMeij");
+		
+		// If the folder does not exist, create it
+		if(!folder.exists()){
+			boolean result = folder.mkdir();
+			if(result){
+				// Show a succes message if the folder is created
+				JOptionPane.showMessageDialog(null, "Map is aangemaakt.");
+				File file = new File(workDir + "LeenMeij" + "//images");
+				if(!file.exists()){
+					file.mkdir();
+				}
+			}
+		}
+	}
 	/**
 	 * Get the add vehicle view
 	 * Add the actionlisteners
@@ -136,7 +180,9 @@ public class VehicleController implements ActionListener{
 
 			else if (e.getSource() == addVehicle.addButton) {
 				try {
+					// Declare a new model
 					Vehicle vehicle = new Vehicle();
+					// Set the model variables
 					vehicle.setVehiclecategoryid(addVehicle.categoryComboBox
 							.getSelectedIndex() + 1);
 					vehicle.setBrand(addVehicle.brandTextField.getText());
@@ -152,14 +198,12 @@ public class VehicleController implements ActionListener{
 					vehicle.setVehicleUsage(Integer.parseInt(addVehicle.usageText
 							.getText()));
 
-					if (!addVehicle.pictureLabel.getText().equals(
-							"Gekozen afbeelding..")) {
+					// Add a new vehcicle image
+					if (!addVehicle.pictureLabel.getText().equals("Gekozen afbeelding..")) {
 						try {
-							BufferedImage bi = ImageIO.read(new File(
-									addVehicle.pictureLabel.getText()));
-							ImageIO.write(bi, "jpg", new File(
-									"C:\\Users\\Deam\\Documents\\GitHub\\ipsen3\\public\\uploaded\\vehicles\\"
-											+ addVehicle.imgName));
+							BufferedImage bi = ImageIO.read(new File(addVehicle.pictureLabel.getText()));
+							// Write the image to the location
+							ImageIO.write(bi, "jpg", new File(workDir + "LeenMeij" + "//images//" + addVehicle.imgName));
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -168,10 +212,12 @@ public class VehicleController implements ActionListener{
 					}
 
 					if(vehicle.checkDuplicates(vehicle)){
+						// Insert the vehicle
 						vehicle.Insert(vehicle);
-						
+						// Show a succesmessage
 						JOptionPane.showMessageDialog(null, "Het voertuig is succesvol toegevoegd.");
-						
+						// Dispose the view
+						addVehicle.dispose();
 						// Update the tables in main
 						MainController.update();
 					} else{
@@ -213,11 +259,10 @@ public class VehicleController implements ActionListener{
 					if (!editVehicle.pictureLabel.getText().equals(
 							"Gekozen afbeelding..")) {
 						try {
-							BufferedImage bi = ImageIO.read(new File(
-									editVehicle.pictureLabel.getText()));
-							ImageIO.write(bi, "jpg", new File(
-									"C:\\Users\\Deam\\Documents\\GitHub\\ipsen3\\public\\uploaded\\vehicles\\"
-											+ editVehicle.imgName));
+							// Read the image
+							BufferedImage bi = ImageIO.read(new File(editVehicle.pictureLabel.getText()));
+							// Write the image to the filelocation
+							ImageIO.write(bi, "jpg", new File(workDir + "LeenMeij" + "//images//" + editVehicle.imgName));
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}

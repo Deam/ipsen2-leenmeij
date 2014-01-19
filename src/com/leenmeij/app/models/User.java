@@ -121,6 +121,24 @@ public class User {
 		// Return the rolename
 		return roleName;
 	}
+	
+	/**
+	 * Check for duplicates when insertin in to the database
+	 * So we can prevent double entries
+	 * @param vehicle
+	 * @return true if the vehicle is unique
+	 */
+	public boolean checkDuplicates(User user){
+	
+		for (User u : user.all()) {
+			if (u.getEmail().equals(user.getEmail())) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
 
 	/**
 	 * Inserts a new user into the database.
@@ -133,6 +151,8 @@ public class User {
 
 		// Create a connection with the database.
 		database.connect();
+		
+		
 
 		// Try to retrieve information from the database.
 		try {

@@ -14,6 +14,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.leenmeij.app.controllers.VehicleController;
 import com.leenmeij.app.models.Invoice;
 import com.leenmeij.app.models.User;
 import com.leenmeij.app.models.Vehicle;
@@ -28,7 +29,7 @@ import com.leenmeij.app.models.VehicleOption;
  *
  */
 public class CreatePdf {
-	private static String fileLocation = "C:/temp/";
+	private static String fileLocation = VehicleController.workDir + "LeenMeij";
 	
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 	private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
@@ -42,7 +43,7 @@ public class CreatePdf {
 		Document document = new Document();
 		try {
 			// Create an instance
-			PdfWriter.getInstance(document, new FileOutputStream(fileLocation  + invoice.getStartdate() + "-" +invoice.getUser_id() + "-" + (int)(Math.random() * 50 + 1) + ".pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(fileLocation  + invoice.getStartdate() + "-" +invoice.getReservation_id() + ".pdf"));
 			// Create the document
 			document.open();
 			// Add the content

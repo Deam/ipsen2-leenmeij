@@ -54,16 +54,12 @@ public class AddUser extends JFrame {
 		setTitle("Gebruiker toevoegen");
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 449);
+		setBounds(100, 100, 359, 449);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 240, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-
-		JLabel lblVoertuigBewerken = new JLabel("Gebruiker toevoegen");
-		lblVoertuigBewerken.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		contentPane.add(lblVoertuigBewerken, BorderLayout.NORTH);
 		
 		idTextField = new JTextField();
 
