@@ -530,6 +530,7 @@ public class ReservationController implements ActionListener, WindowListener{
 					editReservation.dispose();
 					// Update the table
 					viewReservation.tablePanel.setViewportView(getReservationTable());
+					MainController.update();
 				} catch (NumberFormatException e1) {
 					// If there is an error, show a message
 					JOptionPane.showMessageDialog(null, "De geselecteerde reserving kan niet worden verwijderd.");
