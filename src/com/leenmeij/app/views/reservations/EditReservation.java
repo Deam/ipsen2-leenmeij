@@ -38,6 +38,7 @@ public class EditReservation extends JFrame {
 	public JTextField rentalDatesTextField;
 
 	public EditReservation() {
+		setTitle("Reservering bewerken");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 435);
 		contentPane = new JPanel();
@@ -78,6 +79,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblReserveringsnummer, gbc_lblReserveringsnummer);
 		
 		reservationField = new JTextField();
+		reservationField.setToolTipText("Het reserveringsnummer");
 		reservationField.setEditable(false);
 		GridBagConstraints gbc_reservationField = new GridBagConstraints();
 		gbc_reservationField.insets = new Insets(0, 0, 5, 0);
@@ -96,6 +98,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblUser, gbc_lblUser);
 		
 		userField = new JTextField();
+		userField.setToolTipText("De klant");
 		userField.setEditable(false);
 		GridBagConstraints gbc_userField = new GridBagConstraints();
 		gbc_userField.insets = new Insets(0, 0, 5, 0);
@@ -114,6 +117,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblVoertuig, gbc_lblVoertuig);
 		
 		vehicleField = new JTextField();
+		vehicleField.setToolTipText("Het voertuig");
 		vehicleField.setEditable(false);
 		GridBagConstraints gbc_vehicleField = new GridBagConstraints();
 		gbc_vehicleField.insets = new Insets(0, 0, 5, 0);
@@ -132,6 +136,7 @@ public class EditReservation extends JFrame {
 		contentPane.add(lblVerhuurdata, gbc_lblVerhuurdata);
 		
 		rentalDatesTextField = new JTextField();
+		rentalDatesTextField.setToolTipText("De geselecteerde verhuurdata");
 		rentalDatesTextField.setEditable(false);
 		GridBagConstraints gbc_rentalDatesTextField = new GridBagConstraints();
 		gbc_rentalDatesTextField.insets = new Insets(0, 0, 5, 0);
@@ -144,7 +149,7 @@ public class EditReservation extends JFrame {
 		damageButton = new JButton("Schade melden");
 		damageButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		damageButton.setForeground(new Color(255, 255, 255));
-		damageButton.setToolTipText("Sla de bewerkte gegevens op");
+		damageButton.setToolTipText("Meld schade voor deze reservering");
 		damageButton.setBackground(new Color(66, 139, 202));
 		damageButton.setBorderPainted(false);
 		damageButton.setOpaque(true);
@@ -176,7 +181,7 @@ public class EditReservation extends JFrame {
 		deleteButton = new JButton("Annuleren");
 		deleteButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		deleteButton.setForeground(new Color(255, 255, 255));
-		deleteButton.setToolTipText("Verwijder de geselecteerde klant");
+		deleteButton.setToolTipText("Verwijder de geselecteerde reservering");
 		deleteButton.setBackground(new Color(195, 96, 90));	
 		deleteButton.setBorderPainted(false);
 		deleteButton.setOpaque(true);

@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The overview for all the reservations
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class ViewReservation extends JFrame {
 	
@@ -18,6 +23,7 @@ public class ViewReservation extends JFrame {
 	public JButton editButton;
 
 	public ViewReservation() {
+		setTitle("Reservering overzicht");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -29,7 +35,7 @@ public class ViewReservation extends JFrame {
 		contentPane.add(tablePanel, BorderLayout.CENTER);
 		
 		editButton = new JButton("Bewerken");
-		editButton.setToolTipText("Selecteer de klant");
+		editButton.setToolTipText("Selecteer de reservering");
 		editButton.setOpaque(true);
 		editButton.setForeground(Color.WHITE);
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 12));

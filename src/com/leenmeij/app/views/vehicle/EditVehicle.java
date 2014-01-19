@@ -26,6 +26,11 @@ import javax.swing.JCheckBox;
 
 import com.leenmeij.app.controllers.VehicleController;
 
+/**
+ * The view for editing the information of a vehicle
+ * @author Deam
+ *
+ */
 @SuppressWarnings("serial")
 public class EditVehicle extends JFrame {
 
@@ -85,9 +90,9 @@ public class EditVehicle extends JFrame {
 		contentPane.add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0 };
 		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0,Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 
 		JLabel lblCategorie = new JLabel("Categorie:");
@@ -96,7 +101,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblCategorie.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCategorie.anchor = GridBagConstraints.WEST;
 		gbc_lblCategorie.gridx = 0;
-		gbc_lblCategorie.gridy = 1;
+		gbc_lblCategorie.gridy = 0;
 		contentPanel.add(lblCategorie, gbc_lblCategorie);
 	
 		categoryComboBox = new JComboBox<String>(VehicleController.categoryItems());
@@ -106,7 +111,7 @@ public class EditVehicle extends JFrame {
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoryComboBox.gridx = 1;
-		gbc_categoryComboBox.gridy = 1;
+		gbc_categoryComboBox.gridy = 0;
 		contentPanel.add(categoryComboBox, gbc_categoryComboBox);
 
 		JLabel lblMerk = new JLabel("Merk:");
@@ -115,7 +120,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblMerk.anchor = GridBagConstraints.WEST;
 		gbc_lblMerk.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMerk.gridx = 0;
-		gbc_lblMerk.gridy = 2;
+		gbc_lblMerk.gridy = 1;
 		contentPanel.add(lblMerk, gbc_lblMerk);
 
 		brandTextField = new JTextField();
@@ -124,7 +129,7 @@ public class EditVehicle extends JFrame {
 		gbc_brandTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_brandTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_brandTextField.gridx = 1;
-		gbc_brandTextField.gridy = 2;
+		gbc_brandTextField.gridy = 1;
 		contentPanel.add(brandTextField, gbc_brandTextField);
 		brandTextField.setColumns(10);
 
@@ -134,7 +139,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblModel.anchor = GridBagConstraints.WEST;
 		gbc_lblModel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblModel.gridx = 0;
-		gbc_lblModel.gridy = 3;
+		gbc_lblModel.gridy = 2;
 		contentPanel.add(lblModel, gbc_lblModel);
 
 		modelTextField = new JTextField();
@@ -144,7 +149,7 @@ public class EditVehicle extends JFrame {
 		gbc_modelTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_modelTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_modelTextField.gridx = 1;
-		gbc_modelTextField.gridy = 3;
+		gbc_modelTextField.gridy = 2;
 		contentPanel.add(modelTextField, gbc_modelTextField);
 		modelTextField.setColumns(10);
 
@@ -154,7 +159,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblKilometerstand.anchor = GridBagConstraints.WEST;
 		gbc_lblKilometerstand.insets = new Insets(0, 0, 5, 5);
 		gbc_lblKilometerstand.gridx = 0;
-		gbc_lblKilometerstand.gridy = 4;
+		gbc_lblKilometerstand.gridy = 3;
 		contentPanel.add(lblKilometerstand, gbc_lblKilometerstand);
 
 		milageTextField = new JTextField();
@@ -163,7 +168,7 @@ public class EditVehicle extends JFrame {
 		gbc_milageTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_milageTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_milageTextField.gridx = 1;
-		gbc_milageTextField.gridy = 4;
+		gbc_milageTextField.gridy = 3;
 		contentPanel.add(milageTextField, gbc_milageTextField);
 		milageTextField.setColumns(10);
 
@@ -173,7 +178,7 @@ public class EditVehicle extends JFrame {
 		gbc_licensePlateTextBox.anchor = GridBagConstraints.WEST;
 		gbc_licensePlateTextBox.insets = new Insets(0, 0, 5, 5);
 		gbc_licensePlateTextBox.gridx = 0;
-		gbc_licensePlateTextBox.gridy = 5;
+		gbc_licensePlateTextBox.gridy = 4;
 		contentPanel.add(licensePlateTextBox, gbc_licensePlateTextBox);
 
 		licenseTextBox = new JTextField();
@@ -182,7 +187,7 @@ public class EditVehicle extends JFrame {
 		gbc_licenseTextBox.insets = new Insets(0, 0, 5, 0);
 		gbc_licenseTextBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_licenseTextBox.gridx = 1;
-		gbc_licenseTextBox.gridy = 5;
+		gbc_licenseTextBox.gridy = 4;
 		contentPanel.add(licenseTextBox, gbc_licenseTextBox);
 		licenseTextBox.setColumns(10);
 
@@ -192,7 +197,7 @@ public class EditVehicle extends JFrame {
 		gbc_usageLabel.anchor = GridBagConstraints.WEST;
 		gbc_usageLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_usageLabel.gridx = 0;
-		gbc_usageLabel.gridy = 6;
+		gbc_usageLabel.gridy = 5;
 		contentPanel.add(usageLabel, gbc_usageLabel);
 
 		usageText = new JTextField();
@@ -201,7 +206,7 @@ public class EditVehicle extends JFrame {
 		gbc_usageText.insets = new Insets(0, 0, 5, 0);
 		gbc_usageText.fill = GridBagConstraints.HORIZONTAL;
 		gbc_usageText.gridx = 1;
-		gbc_usageText.gridy = 6;
+		gbc_usageText.gridy = 5;
 		contentPanel.add(usageText, gbc_usageText);
 		usageText.setColumns(10);
 
@@ -211,7 +216,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblKleur.anchor = GridBagConstraints.WEST;
 		gbc_lblKleur.insets = new Insets(0, 0, 5, 5);
 		gbc_lblKleur.gridx = 0;
-		gbc_lblKleur.gridy = 7;
+		gbc_lblKleur.gridy = 6;
 		contentPanel.add(lblKleur, gbc_lblKleur);
 
 		colorTextField = new JTextField();
@@ -220,7 +225,7 @@ public class EditVehicle extends JFrame {
 		gbc_colorTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_colorTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_colorTextField.gridx = 1;
-		gbc_colorTextField.gridy = 7;
+		gbc_colorTextField.gridy = 6;
 		contentPanel.add(colorTextField, gbc_colorTextField);
 		colorTextField.setColumns(10);
 
@@ -230,7 +235,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblPrijsPerUur.anchor = GridBagConstraints.WEST;
 		gbc_lblPrijsPerUur.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrijsPerUur.gridx = 0;
-		gbc_lblPrijsPerUur.gridy = 8;
+		gbc_lblPrijsPerUur.gridy = 7;
 		contentPanel.add(lblPrijsPerUur, gbc_lblPrijsPerUur);
 
 		hourlyrateTextBox = new JTextField();
@@ -239,7 +244,7 @@ public class EditVehicle extends JFrame {
 		gbc_hourlyrateTextBox.insets = new Insets(0, 0, 5, 0);
 		gbc_hourlyrateTextBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_hourlyrateTextBox.gridx = 1;
-		gbc_hourlyrateTextBox.gridy = 8;
+		gbc_hourlyrateTextBox.gridy = 7;
 		contentPanel.add(hourlyrateTextBox, gbc_hourlyrateTextBox);
 		hourlyrateTextBox.setColumns(10);
 
@@ -249,7 +254,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblAfbeelding.anchor = GridBagConstraints.WEST;
 		gbc_lblAfbeelding.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAfbeelding.gridx = 0;
-		gbc_lblAfbeelding.gridy = 9;
+		gbc_lblAfbeelding.gridy = 8;
 		contentPanel.add(lblAfbeelding, gbc_lblAfbeelding);
 
 		selectImageButton = new JButton("Afbeelding selecteren");
@@ -258,7 +263,7 @@ public class EditVehicle extends JFrame {
 		gbc_selectImageButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_selectImageButton.insets = new Insets(0, 0, 5, 0);
 		gbc_selectImageButton.gridx = 1;
-		gbc_selectImageButton.gridy = 9;
+		gbc_selectImageButton.gridy = 8;
 		contentPanel.add(selectImageButton, gbc_selectImageButton);
 		
 		pictureLabel = new JLabel("Gekozen afbeelding..");
@@ -266,7 +271,7 @@ public class EditVehicle extends JFrame {
 		GridBagConstraints gbc_pictureLabel = new GridBagConstraints();
 		gbc_pictureLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_pictureLabel.gridx = 1;
-		gbc_pictureLabel.gridy = 10;
+		gbc_pictureLabel.gridy = 9;
 		contentPanel.add(pictureLabel, gbc_pictureLabel);
 
 		JLabel lblOpmerkingen = new JLabel("Opmerkingen:");
@@ -275,7 +280,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblOpmerkingen.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblOpmerkingen.insets = new Insets(0, 0, 5, 5);
 		gbc_lblOpmerkingen.gridx = 0;
-		gbc_lblOpmerkingen.gridy = 11;
+		gbc_lblOpmerkingen.gridy = 10;
 		contentPanel.add(lblOpmerkingen, gbc_lblOpmerkingen);
 
 		scrollPane = new JScrollPane();
@@ -283,7 +288,7 @@ public class EditVehicle extends JFrame {
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 11;
+		gbc_scrollPane.gridy = 10;
 		contentPanel.add(scrollPane, gbc_scrollPane);
 
 		commentArea = new JTextArea();
@@ -298,7 +303,7 @@ public class EditVehicle extends JFrame {
 		gbc_lblSchadegeschiedenis.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblSchadegeschiedenis.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSchadegeschiedenis.gridx = 0;
-		gbc_lblSchadegeschiedenis.gridy = 12;
+		gbc_lblSchadegeschiedenis.gridy = 11;
 		contentPanel.add(lblSchadegeschiedenis, gbc_lblSchadegeschiedenis);
 		
 		damagePanels = new JScrollPane();
@@ -306,7 +311,7 @@ public class EditVehicle extends JFrame {
 		gbc_damagePanels.insets = new Insets(0, 0, 5, 0);
 		gbc_damagePanels.fill = GridBagConstraints.BOTH;
 		gbc_damagePanels.gridx = 1;
-		gbc_damagePanels.gridy = 12;
+		gbc_damagePanels.gridy = 11;
 		contentPanel.add(damagePanels, gbc_damagePanels);
 		
 		lblBeschikbaarVoorVerhuur = new JLabel("Beschikbaar voor verhuur:");
@@ -314,14 +319,15 @@ public class EditVehicle extends JFrame {
 		GridBagConstraints gbc_lblBeschikbaarVoorVerhuur = new GridBagConstraints();
 		gbc_lblBeschikbaarVoorVerhuur.insets = new Insets(0, 0, 0, 5);
 		gbc_lblBeschikbaarVoorVerhuur.gridx = 0;
-		gbc_lblBeschikbaarVoorVerhuur.gridy = 13;
+		gbc_lblBeschikbaarVoorVerhuur.gridy = 12;
 		contentPanel.add(lblBeschikbaarVoorVerhuur, gbc_lblBeschikbaarVoorVerhuur);
 		
 		availableCheckBox = new JCheckBox("Niet beschikbaar");
+		availableCheckBox.setToolTipText("Vink aan als het voertuig niet beschikbaar is");
 		GridBagConstraints gbc_availableCheckBox = new GridBagConstraints();
 		gbc_availableCheckBox.anchor = GridBagConstraints.WEST;
 		gbc_availableCheckBox.gridx = 1;
-		gbc_availableCheckBox.gridy = 13;
+		gbc_availableCheckBox.gridy = 12;
 		contentPanel.add(availableCheckBox, gbc_availableCheckBox);
 	}
 }

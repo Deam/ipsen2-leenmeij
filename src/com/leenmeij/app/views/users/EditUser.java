@@ -23,6 +23,11 @@ import com.leenmeij.app.models.User;
 
 import javax.swing.JComboBox;
 
+/**
+ * The view for editing a user
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class EditUser extends JFrame {
 
@@ -96,6 +101,7 @@ public class EditUser extends JFrame {
 		contentPanel.add(lblGebruikersrol, gbc_lblGebruikersrol);
 		
 		roleBox = new JComboBox<String>(UserController.userRoles());
+		roleBox.setToolTipText("Selecteer de gebruikersrol");
 		GridBagConstraints gbc_roleBox = new GridBagConstraints();
 		gbc_roleBox.insets = new Insets(0, 0, 5, 0);
 		gbc_roleBox.fill = GridBagConstraints.HORIZONTAL;
@@ -152,7 +158,7 @@ public class EditUser extends JFrame {
 
 		lastNameTextField = new JTextField();
 		lastNameTextField
-				.setToolTipText("Vul hier ");
+				.setToolTipText("Vul hier de achternaam van de gebruiker in");
 		GridBagConstraints gbc_lastNameTextField = new GridBagConstraints();
 		gbc_lastNameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_lastNameTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -269,6 +275,7 @@ public class EditUser extends JFrame {
 		contentPanel.add(lblTelefoonnummer, gbc_lblTelefoonnummer);
 		
 		phoneNumberTextField = new JTextField();
+		phoneNumberTextField.setToolTipText("Vul hier het telefoonnummer van de gebruiker in");
 		GridBagConstraints gbc_phoneNumberTextField = new GridBagConstraints();
 		gbc_phoneNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_phoneNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -287,6 +294,7 @@ public class EditUser extends JFrame {
 		contentPanel.add(lblRijbewijsnummer, gbc_lblRijbewijsnummer);
 		
 		licenseNumberTextField = new JTextField();
+		licenseNumberTextField.setToolTipText("Vul hier het rijbewijsnummer van de gebruiker in");
 		GridBagConstraints gbc_licenseNumberTextField = new GridBagConstraints();
 		gbc_licenseNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_licenseNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -305,6 +313,7 @@ public class EditUser extends JFrame {
 		contentPanel.add(lblPaspoortnummer, gbc_lblPaspoortnummer);
 		
 		passportNumberTextField = new JTextField();
+		passportNumberTextField.setToolTipText("Vul hier het paspoortnummer van de gebruiker in");
 		GridBagConstraints gbc_passportNumberTextField = new GridBagConstraints();
 		gbc_passportNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_passportNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -323,6 +332,7 @@ public class EditUser extends JFrame {
 		contentPanel.add(lblKvkNummer, gbc_lblKvkNummer);
 		
 		kvkNumberTextField = new JTextField();
+		kvkNumberTextField.setToolTipText("Vul hier het kvknummer in");
 		GridBagConstraints gbc_kvkNumberTextField = new GridBagConstraints();
 		gbc_kvkNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_kvkNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -341,6 +351,7 @@ public class EditUser extends JFrame {
 		contentPanel.add(lblBtwNummer, gbc_lblBtwNummer);
 		
 		vatNumberTextField = new JTextField();
+		vatNumberTextField.setToolTipText("Vul hier het BTW nummer in");
 		GridBagConstraints gbc_vatNumberTextField = new GridBagConstraints();
 		gbc_vatNumberTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_vatNumberTextField.gridx = 1;

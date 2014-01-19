@@ -76,6 +76,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblBegindatum, gbc_lblBegindatum);
 		
 		startDatePicker = new JXDatePicker();
+		startDatePicker.getEditor().setToolTipText("Selecteer de ingangsdatum");
 		GridBagConstraints gbc_startDatePicker = new GridBagConstraints();
 		gbc_startDatePicker.fill = GridBagConstraints.HORIZONTAL;
 		gbc_startDatePicker.insets = new Insets(0, 0, 5, 5);
@@ -92,6 +93,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblEinddatum, gbc_lblEinddatum);
 		
 		endDatePicker = new JXDatePicker();
+		endDatePicker.getEditor().setToolTipText("Selecteer de einddatum");
 		GridBagConstraints gbc_endDatePicker = new GridBagConstraints();
 		gbc_endDatePicker.fill = GridBagConstraints.HORIZONTAL;
 		gbc_endDatePicker.insets = new Insets(0, 0, 5, 5);
@@ -127,6 +129,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblVoornaam, gbc_lblVoornaam);
 		
 		firstnameTextField = new JTextField();
+		firstnameTextField.setToolTipText("De voornaam van de klant");
 		firstnameTextField.setEditable(false);
 		GridBagConstraints gbc_firstnameTextField = new GridBagConstraints();
 		gbc_firstnameTextField.insets = new Insets(0, 0, 5, 5);
@@ -162,6 +165,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblAchternaam, gbc_lblAchternaam);
 		
 		lastnameTextField = new JTextField();
+		lastnameTextField.setToolTipText("De achternaam van de klant");
 		lastnameTextField.setEditable(false);
 		GridBagConstraints gbc_lastnameTextField = new GridBagConstraints();
 		gbc_lastnameTextField.insets = new Insets(0, 0, 5, 5);
@@ -180,6 +184,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblKlantnummer, gbc_lblKlantnummer);
 		
 		customerNumberTextField = new JTextField();
+		customerNumberTextField.setToolTipText("Het klantnummer");
 		customerNumberTextField.setEditable(false);
 		GridBagConstraints gbc_customerNumberTextField = new GridBagConstraints();
 		gbc_customerNumberTextField.insets = new Insets(0, 0, 5, 5);
@@ -217,6 +222,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblMerkl, gbc_lblMerkl);
 		
 		brandTextField = new JTextField();
+		brandTextField.setToolTipText("Het merk van het voertuig");
 		brandTextField.setEditable(false);
 		GridBagConstraints gbc_brandTextField = new GridBagConstraints();
 		gbc_brandTextField.insets = new Insets(0, 0, 5, 5);
@@ -251,6 +257,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblModel, gbc_lblModel);
 		
 		modelTextField = new JTextField();
+		modelTextField.setToolTipText("Het model van het voertuig");
 		modelTextField.setEditable(false);
 		GridBagConstraints gbc_modelTextField = new GridBagConstraints();
 		gbc_modelTextField.insets = new Insets(0, 0, 5, 5);
@@ -269,6 +276,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblKenteken, gbc_lblKenteken);
 		
 		licenseTextField = new JTextField();
+		licenseTextField.setToolTipText("Het kenteken van het voertuig");
 		licenseTextField.setEditable(false);
 		GridBagConstraints gbc_licenseTextField = new GridBagConstraints();
 		gbc_licenseTextField.insets = new Insets(0, 0, 5, 5);
@@ -332,6 +340,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblPrijs, gbc_lblPrijs);
 		
 		priceTextField = new JTextField();
+		priceTextField.setToolTipText("De prijs excl. BTW");
 		priceTextField.setEditable(false);
 		GridBagConstraints gbc_priceTextField = new GridBagConstraints();
 		gbc_priceTextField.insets = new Insets(0, 0, 5, 5);
@@ -350,6 +359,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblBtw, gbc_lblBtw);
 		
 		vatTextField = new JTextField();
+		vatTextField.setToolTipText("De berekende BTW");
 		vatTextField.setEditable(false);
 		GridBagConstraints gbc_vatTextField = new GridBagConstraints();
 		gbc_vatTextField.insets = new Insets(0, 0, 5, 5);
@@ -368,6 +378,7 @@ public class AddReservation extends JFrame {
 		getContentPane().add(lblTotaal, gbc_lblTotaal);
 		
 		totalTextField = new JTextField();
+		totalTextField.setToolTipText("De totaalprijs van de reservering.");
 		totalTextField.setEditable(false);
 		GridBagConstraints gbc_totalTextField = new GridBagConstraints();
 		gbc_totalTextField.anchor = GridBagConstraints.NORTH;

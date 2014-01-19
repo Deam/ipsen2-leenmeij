@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Random;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chapter;

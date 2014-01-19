@@ -14,6 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * A view for editing vehicle options
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class EditOption extends JFrame {
 
@@ -27,12 +32,8 @@ public class EditOption extends JFrame {
 		setBounds(100, 100, 502, 156);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
-		JLabel lblVoertuigoptieToevoegen = new JLabel("Voertuigoptie bewerken");
-		lblVoertuigoptieToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		getContentPane().add(lblVoertuigoptieToevoegen, BorderLayout.NORTH);
-
 		editButton = new JButton("Bewerken");
-		editButton.setToolTipText("Voeg een voertuig toe aan de database");
+		editButton.setToolTipText("Sla de aangepaste gegevens op");
 		editButton.setOpaque(true);
 		editButton.setForeground(Color.WHITE);
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 12));

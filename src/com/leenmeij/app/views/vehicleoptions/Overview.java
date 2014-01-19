@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 
+/**
+ * A view with a table with all the vehicle options
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class Overview extends JFrame {
 
@@ -19,6 +24,7 @@ public class Overview extends JFrame {
 	public JButton deleteButton;
 
 	public Overview() {
+		setTitle("Overzicht van voertuig opties");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -33,7 +39,7 @@ public class Overview extends JFrame {
 		editButton = new JButton("Bewerken");
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		editButton.setForeground(new Color(255, 255, 255));
-		editButton.setToolTipText("Bewerk de geselecteerde klant");
+		editButton.setToolTipText("Bewerk de geselecteerde optie");
 		editButton.setBackground(new Color(66, 139, 202));	
 		editButton.setBorderPainted(false);
 		editButton.setOpaque(true);
@@ -43,7 +49,7 @@ public class Overview extends JFrame {
 		deleteButton = new JButton("Verwijderen");
 		deleteButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		deleteButton.setForeground(new Color(255, 255, 255));
-		deleteButton.setToolTipText("Verwijder de geselecteerde klant");
+		deleteButton.setToolTipText("Verwijder de geselecteerde optie");
 		deleteButton.setBackground(new Color(195, 96, 90));	
 		deleteButton.setBorderPainted(false);
 		deleteButton.setOpaque(true);

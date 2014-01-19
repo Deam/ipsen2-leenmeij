@@ -19,6 +19,12 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import java.awt.Insets;
 
+/**
+ * A view with all the the information
+ * we want to display for the users
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 	

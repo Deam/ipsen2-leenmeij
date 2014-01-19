@@ -20,6 +20,11 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.BorderLayout;
 
+/**
+ * A view for adding vehicle options
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class AddOption extends JFrame {
 	public JTextField nameField, priceField;
@@ -28,17 +33,14 @@ public class AddOption extends JFrame {
 	 * Create the frame.
 	 */
 	public AddOption() {
+		setTitle("Voertuig optie toevoegen");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 502, 156);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblVoertuigoptieToevoegen = new JLabel("Voertuigoptie toevoegen");
-		lblVoertuigoptieToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		getContentPane().add(lblVoertuigoptieToevoegen, BorderLayout.NORTH);
-		
 		addButton = new JButton("Toevoegen");
 		getContentPane().add(addButton, BorderLayout.SOUTH);
-		addButton.setToolTipText("Voeg een voertuig toe aan de database");
+		addButton.setToolTipText("Voeg de voertuigoptie toe aan de database");
 		addButton.setOpaque(true);
 		addButton.setForeground(Color.WHITE);
 		addButton.setFont(new Font("Tahoma", Font.BOLD, 12));

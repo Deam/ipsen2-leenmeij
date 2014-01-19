@@ -16,6 +16,13 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
+/**
+ * The view for adding damage to a vehicle
+ * whem the vehicle has sustained damage 
+ * during a reservation
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class AddDamage extends JFrame {
 
@@ -29,6 +36,7 @@ public class AddDamage extends JFrame {
 	public JCheckBox availableCheckBox;
 
 	public AddDamage() {
+		setTitle("Schade toevoegen");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -111,7 +119,7 @@ public class AddDamage extends JFrame {
 		contentPane.add(lblBeschikbaarVoorVerhuur, gbc_lblBeschikbaarVoorVerhuur);
 		
 		availableCheckBox = new JCheckBox("Voertuig is niet beschikbaar");
-		availableCheckBox.setToolTipText("Selecteer of het voertuig beschikbaar is");
+		availableCheckBox.setToolTipText("Vink aan als het voertuig niet beschikbaar is voor verder verhuur");
 		GridBagConstraints gbc_availableCheckBox = new GridBagConstraints();
 		gbc_availableCheckBox.anchor = GridBagConstraints.WEST;
 		gbc_availableCheckBox.insets = new Insets(0, 0, 5, 0);
@@ -119,7 +127,7 @@ public class AddDamage extends JFrame {
 		gbc_availableCheckBox.gridy = 3;
 		contentPane.add(availableCheckBox, gbc_availableCheckBox);
 		
-		addButton = new JButton("Toepassen");
+		addButton = new JButton("Toevoegen");
 		addButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		addButton.setForeground(new Color(255, 255, 255));
 		addButton.setToolTipText("Voeg een voertuig toe aan de database");

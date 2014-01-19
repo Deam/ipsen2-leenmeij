@@ -10,6 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The view for selecting a vehicle
+ * So we can set the information in the
+ * AddReservation view.
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class SelectVehicle extends JFrame {
 
@@ -18,6 +25,7 @@ public class SelectVehicle extends JFrame {
 	public JButton selectButton;
 
 	public SelectVehicle() {
+		setTitle("Voertuig selecteren");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -31,7 +39,7 @@ public class SelectVehicle extends JFrame {
 		selectButton = new JButton("Selecteren");
 		selectButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		selectButton.setForeground(new Color(255, 255, 255));
-		selectButton.setToolTipText("Selecteer de klant");
+		selectButton.setToolTipText("Selecteer het voertuig");
 		selectButton.setBackground(new Color(92, 184, 92));
 		selectButton.setBorderPainted(false);
 		selectButton.setOpaque(true);

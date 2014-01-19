@@ -7,6 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 
+/**
+ * The overview for all the invoices
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class InvoiceOverview extends JFrame {
 
@@ -17,6 +22,7 @@ public class InvoiceOverview extends JFrame {
 	 * Create the frame.
 	 */
 	public InvoiceOverview() {
+		setTitle("Factuur overzicht");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 710, 485);
 		contentPane = new JPanel();

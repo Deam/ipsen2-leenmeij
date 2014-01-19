@@ -21,6 +21,11 @@ import javax.swing.JComboBox;
 
 import com.leenmeij.app.controllers.UserController;
 
+/**
+ * The view for adding a user to the database
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class AddUser extends JFrame {
 
@@ -95,6 +100,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblGebruikersrol, gbc_lblGebruikersrol);
 		
 		rolesBox = new JComboBox<String>(UserController.userRoles());
+		rolesBox.setToolTipText("Kies hier de gebruikersrol");
 		GridBagConstraints gbc_rolesBox = new GridBagConstraints();
 		gbc_rolesBox.insets = new Insets(0, 0, 5, 0);
 		gbc_rolesBox.fill = GridBagConstraints.HORIZONTAL;
@@ -151,7 +157,7 @@ public class AddUser extends JFrame {
 
 		lastNameTextField = new JTextField();
 		lastNameTextField
-				.setToolTipText("Vul hier ");
+				.setToolTipText("Vul hier de achternaam van de gebruiker in");
 		GridBagConstraints gbc_lastNameTextField = new GridBagConstraints();
 		gbc_lastNameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_lastNameTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -210,7 +216,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblHuisnummer, gbc_lblHuisnummer);
 
 		addressLineTwoTextField = new JTextField();
-		addressLineTwoTextField.setToolTipText("Vul hier het huisnummer van de gebruiker");
+		addressLineTwoTextField.setToolTipText("Vul hier het huisnummer van de gebruiker in");
 		GridBagConstraints gbc_addressLineTwoTextField = new GridBagConstraints();
 		gbc_addressLineTwoTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_addressLineTwoTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -268,6 +274,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblTelefoonnummer, gbc_lblTelefoonnummer);
 		
 		phoneNumberTextField = new JTextField();
+		phoneNumberTextField.setToolTipText("Vul hier het telefoonnummer in");
 		GridBagConstraints gbc_phoneNumberTextField = new GridBagConstraints();
 		gbc_phoneNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_phoneNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -286,6 +293,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblRijbewijsnummer, gbc_lblRijbewijsnummer);
 		
 		licenseNumberTextField = new JTextField();
+		licenseNumberTextField.setToolTipText("Vul hier het rijbewijsnummer in");
 		GridBagConstraints gbc_licenseNumberTextField = new GridBagConstraints();
 		gbc_licenseNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_licenseNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -304,6 +312,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblPaspoortnummer, gbc_lblPaspoortnummer);
 		
 		passportNumberTextField = new JTextField();
+		passportNumberTextField.setToolTipText("Vul hier het paspoortnummer in");
 		GridBagConstraints gbc_passportNumberTextField = new GridBagConstraints();
 		gbc_passportNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_passportNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -322,6 +331,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblKvkNummer, gbc_lblKvkNummer);
 		
 		kvkNumberTextField = new JTextField();
+		kvkNumberTextField.setToolTipText("Vul hier een kvknummer in als het een zakelijke klant bedraagt");
 		GridBagConstraints gbc_kvkNumberTextField = new GridBagConstraints();
 		gbc_kvkNumberTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_kvkNumberTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -340,6 +350,7 @@ public class AddUser extends JFrame {
 		contentPanel.add(lblBtwNummer, gbc_lblBtwNummer);
 		
 		vatNumberTextField = new JTextField();
+		vatNumberTextField.setToolTipText("Vul hier het btw nummer in als het een zakelijke klant bedraagt");
 		GridBagConstraints gbc_vatNumberTextField = new GridBagConstraints();
 		gbc_vatNumberTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_vatNumberTextField.gridx = 1;

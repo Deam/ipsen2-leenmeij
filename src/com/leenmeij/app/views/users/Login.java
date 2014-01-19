@@ -12,6 +12,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 
+/**
+ * The loginview for the LeenMeij application
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class Login extends JFrame {
 	public JPasswordField passwordField;
@@ -49,6 +54,7 @@ public class Login extends JFrame {
 		getContentPane().add(lblEmailadresominteloggen, gbc_lblEmailadresominteloggen);
 		
 		emailTextField = new JTextField();
+		emailTextField.setToolTipText("Vul hier je emailadres in");
 		GridBagConstraints gbc_emailTextField = new GridBagConstraints();
 		gbc_emailTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_emailTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -67,6 +73,7 @@ public class Login extends JFrame {
 		getContentPane().add(lblWachtwoord, gbc_lblWachtwoord);
 		
 		passwordField = new JPasswordField();
+		passwordField.setToolTipText("Vul hier het wachtwoord in");
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
@@ -77,7 +84,7 @@ public class Login extends JFrame {
 		cancelButton = new JButton("Annuleren");
 		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cancelButton.setForeground(new Color(255, 255, 255));
-		cancelButton.setToolTipText("Verwijder de geselecteerde klant");
+		cancelButton.setToolTipText("Annuleer het inloggen");
 		cancelButton.setBackground(new Color(195, 96, 90));	
 		cancelButton.setBorderPainted(false);
 		cancelButton.setOpaque(true);
@@ -93,7 +100,7 @@ public class Login extends JFrame {
 		loginButton = new JButton("Inloggen");
 		loginButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		loginButton.setForeground(new Color(255, 255, 255));
-		loginButton.setToolTipText("Voeg een voertuig toe aan de database");
+		loginButton.setToolTipText("Login met de ingevulde gegevens");
 		loginButton.setBackground(new Color(92, 184, 92));
 		loginButton.setBorderPainted(false);
 		loginButton.setOpaque(true);

@@ -414,7 +414,7 @@ public class ReservationController implements ActionListener, WindowListener{
 			
 			if (e.getSource() == selectVehicle.selectButton) {
 				Vehicle vehicle = new Vehicle();
-				
+				// Set the vehicle id
 				vehicleID = Integer.parseInt(VehicleController.vehicleTable.getModel().getValueAt(VehicleController.vehicleTable.getSelectedRow(), 0).toString());
 
 				// If the selected vehicle is locked, return a messagedialog
@@ -532,7 +532,7 @@ public class ReservationController implements ActionListener, WindowListener{
 					viewReservation.tablePanel.setViewportView(getReservationTable());
 				} catch (NumberFormatException e1) {
 					// If there is an error, show a message
-					JOptionPane.showMessageDialog(null, "De geselecteerde reserving kan niet worden verwijdert.");
+					JOptionPane.showMessageDialog(null, "De geselecteerde reserving kan niet worden verwijderd.");
 				}
 			}
 		}

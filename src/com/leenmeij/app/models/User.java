@@ -47,7 +47,7 @@ public class User {
 		user = user.find(email);
 
 		// Check if the user password belongs to the user e-mail.
-		if (!email.isEmpty()) {
+		if (!email.isEmpty() && !password.isEmpty()) {
 			for (User u : user.all()) {
 				if (u.getEmail().equals(email)) {
 					return true;

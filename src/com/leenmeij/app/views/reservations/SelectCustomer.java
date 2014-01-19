@@ -11,6 +11,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+/**
+ * The view for selecting a customer
+ * So we can set it in the addreservation view
+ * Gets a list with all the customers
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class SelectCustomer extends JFrame {
 
@@ -21,6 +28,7 @@ public class SelectCustomer extends JFrame {
 	public JScrollPane tablePanel;
 	
 	public SelectCustomer() {
+		setTitle("Klant selecteren");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
