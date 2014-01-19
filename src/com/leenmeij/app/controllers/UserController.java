@@ -167,18 +167,21 @@ public class UserController implements ActionListener {
 				user.setPassportNumber(addUser.passportNumberTextField.getText());
 				user.setKvkNumber(addUser.kvkNumberTextField.getText());
 				user.setVatNumber(addUser.vatNumberTextField.getText());
-				// Save the user information
-				user.save(user);
-				
-				// Get a new user model for id passing
-				User u = user.find(addUser.emailTextField.getText());
-				// Declare a new model
-				UserRole userRole = new UserRole();
-				// Set the values
-				userRole.setUserID(u.getId());
-				userRole.setRoleID(addUser.rolesBox.getSelectedIndex() + 1);
+			
 				// Insert the user
-				if(u.checkDuplicates(user)){
+				if(user.checkDuplicates(user)){
+					// Save the user information
+					user.save(user);
+					
+					// Get a new user model for id passing
+					User u = user.find(addUser.emailTextField.getText());
+					// Declare a new model
+					UserRole userRole = new UserRole();
+					// Set the values
+					userRole.setUserID(u.getId());
+					userRole.setRoleID(addUser.rolesBox.getSelectedIndex() + 1);
+					
+					// Insert the userrole
 					userRole.InsertUser(userRole);
 					// Update the tables in main
 					MainController.update();

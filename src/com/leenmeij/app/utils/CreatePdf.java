@@ -29,7 +29,7 @@ import com.leenmeij.app.models.VehicleOption;
  *
  */
 public class CreatePdf {
-	private static String fileLocation = VehicleController.workDir + "LeenMeij";
+	private static String fileLocation = VehicleController.workDir + "LeenMeij//";
 	
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 	private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);

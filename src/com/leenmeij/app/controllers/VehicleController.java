@@ -1,5 +1,6 @@
 package com.leenmeij.app.controllers;
 
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -221,10 +222,12 @@ public class VehicleController implements ActionListener{
 						// Update the tables in main
 						MainController.update();
 					} else{
+						// Show an error message
 						JOptionPane.showMessageDialog(null, "Er bestaat al een voertuig met het zelfde kenteken");
 					}
 
 				} catch (NumberFormatException e1) {
+					// Show an error message
 					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, controleer de gegevens en probeer het opnieuw.");
 				}
 			}
@@ -318,24 +321,27 @@ public class VehicleController implements ActionListener{
 		if (vehicleOverview != null) {
 			if (e.getSource() == vehicleOverview.editButton) {			
 				try {
-					System.out.println(vehicleTable.getModel().getValueAt(vehicleTable.getSelectedRow(), 0));
-					getEditVehicle(Integer.parseInt(vehicleTable.getModel()
-							.getValueAt(vehicleTable.getSelectedRow(), 0)
-							.toString()));
+					getEditVehicle(Integer.parseInt(vehicleTable.getModel().getValueAt(vehicleTable.getSelectedRow(), 0).toString()));
 				} catch (Exception exception) {
 					JOptionPane.showMessageDialog(null, "Selecteer een voertuig", "Fout", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			// Delete the vehicle
 			else if (e.getSource() == vehicleOverview.deleteButton) {
-				Vehicle vehicle = new Vehicle();
+				try {
+					Vehicle vehicle = new Vehicle();
 
-				vehicle.Delete(Integer.parseInt(vehicleTable.getModel()
-						.getValueAt(vehicleTable.getSelectedRow(), 0)
-						.toString()));
-				
-				
-				vehicleOverview.tablePanel.setViewportView(getVehicleTable());
+					vehicle.Delete(Integer.parseInt(vehicleTable.getModel().getValueAt(vehicleTable.getSelectedRow(), 0).toString()));
+					// Show succes message
+					JOptionPane.showMessageDialog(null, "Het voertuig is succesvol verwijdert");
+					
+					// Refresh the table
+					vehicleOverview.tablePanel.setViewportView(getVehicleTable());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "Er is geen voertuig geselecteerd, probeer het opnieuw.");
+				} catch (HeadlessException e1) {
+					JOptionPane.showMessageDialog(null, "Er is een fout opgetreden, probeer het opnieuw.");
+				}
 			}
 		}
 	}

@@ -138,7 +138,11 @@ public class VehicleOptionsController implements ActionListener {
 				}
 				
 				optionOverview.tablePanel.setViewportView(getVehicleOptionsList());
-			} else if(e.getSource() == editOption.editButton){
+			}
+		}
+		
+		if(editOption != null){
+			if(e.getSource() == editOption.editButton){
 				try {
 					// Declare the model
 					VehicleOption option = new VehicleOption();

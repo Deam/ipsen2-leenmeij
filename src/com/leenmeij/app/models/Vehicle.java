@@ -71,7 +71,7 @@ public class Vehicle {
 	}
 	
 	/**
-	 * Check for duplicates when insertin in to the database
+	 * Check for duplicates when inserting in to the database
 	 * So we can prevent double entries
 	 * @param vehicle
 	 * @return true if the vehicle is unique

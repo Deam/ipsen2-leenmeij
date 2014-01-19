@@ -123,10 +123,10 @@ public class User {
 	}
 	
 	/**
-	 * Check for duplicates when insertin in to the database
+	 * Check for duplicates when inserting in to the database
 	 * So we can prevent double entries
-	 * @param vehicle
-	 * @return true if the vehicle is unique
+	 * @param user
+	 * @return true if the user is unique
 	 */
 	public boolean checkDuplicates(User user){
 	
