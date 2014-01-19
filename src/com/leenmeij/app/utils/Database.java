@@ -30,9 +30,7 @@ public class Database {
 		// and store it in a connection object.
 		try {
 			// String for vpn connection @school
-			//String url = "jdbc:mysql://172.22.22.22/leenmeij";
-			
-			String url = "jdbc:mysql://localhost/leenmeij";
+			String url = "jdbc:mysql:145.97.16.202/leenmeij";
 
 			// Set the properties, set username and password.
 			Properties p = new Properties();
