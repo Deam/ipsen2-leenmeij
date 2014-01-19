@@ -261,16 +261,27 @@ public class UserController implements ActionListener {
 		 * Delete the selected user in de useroverview
 		 */
 		else if (e.getSource() == userOverview.deleteButton) {
-			// Declare the user
-			User user = new User();
-			// Remove the user from the database
-			user.remove(Integer.parseInt(customerTable.getModel()
-					.getValueAt(customerTable.getSelectedRow(), 0).toString()));
 			
-			userOverview.tablePanel.setViewportView(getCustomerTable());
-			
-			// Update the tables in main
-			MainController.update();
+			try {
+				// Declare the user
+				User user = new User();
+				// Set the integer for useridchecking
+				int id = (Integer.parseInt(customerTable.getModel().getValueAt(customerTable.getSelectedRow(), 0).toString()));
+				// Remove the user from the database
+				if(id != 1){
+					user.remove(id);
+				} else{
+					JOptionPane.showMessageDialog(null, "De systeemadministrator kan niet verwijderd worden.");
+				}
+				
+				// Update the tables in main
+				MainController.update();
+				userOverview.tablePanel.setViewportView(getCustomerTable());
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(null, "Er is een ongeldige numerieke waarde geselecteerd, probeer het opnieuw");
+			} catch (HeadlessException e1) {
+				JOptionPane.showMessageDialog(null, "Er is een fout opgetreden. Probeer het nogmaals of neem contact op met de systeembeerder");
+			}
 		}
 	}
 	

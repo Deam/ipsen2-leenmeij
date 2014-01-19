@@ -2,31 +2,29 @@ package com.leenmeij.app.utils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.Writer;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.leenmeij.app.models.Invoice;
 import com.leenmeij.app.models.User;
 import com.leenmeij.app.models.Vehicle;
+import com.leenmeij.app.models.VehicleOption;
 
 /**
  * This class creates a pdf for the invoice
+ * All the values that we pass to the invoice
+ * is processed in this class, so we can put
+ * the data in the pdf.
  * @author Deam Kop (s1075228)
  *
  */
@@ -35,23 +33,22 @@ public class CreatePdf {
 	
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 	private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
-	
-	private static PdfWriter writer;
-	
+
 	/**
 	 * Creates the document
 	 * @param invoice
 	 */
 	public void createPdf(Invoice invoice){
-		// Get a random digit for the 
-		Random random = new Random(100);
 		// Declare a document
 		Document document = new Document();
 		try {
 			// Create an instance
-			writer = PdfWriter.getInstance(document, new FileOutputStream(fileLocation + invoice.getUser_id() + invoice.getStartdate() + random.nextInt() + ".pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(fileLocation  + invoice.getStartdate() + "-" +invoice.getUser_id() + "-" + (int)(Math.random() * 50 + 1) + ".pdf"));
+			// Create the document
 			document.open();
+			// Add the content
 			contentPage(document, invoice);
+			// Close the document
 			document.close();
 		} catch (FileNotFoundException | DocumentException e) {
 			e.printStackTrace();
@@ -116,28 +113,6 @@ public class CreatePdf {
 		Vehicle vehicle = new Vehicle();
 		vehicle = vehicle.getById(invoice.getVehicle_id());
 		
-		// Set the cell text
-		PdfPCell c1 = new PdfPCell(new Phrase(""));
-		// Set the text alignment
-	    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    // Set the border color
-	    c1.setBorderColor(new BaseColor(255, 255, 255));
-	    // Set the background color
-	    c1.setBackgroundColor(new BaseColor(66, 139, 202));
-	    // Add the cell to the table
-	    table.addCell(c1);
-
-	    c1 = new PdfPCell(new Phrase(""));
-		// Set the text alignment
-	    c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    // Set the border color
-	    c1.setBorderColor(new BaseColor(66, 139, 202));
-	    // Set the background color
-	    c1.setBackgroundColor(new BaseColor(66, 139, 202));
-	    // Add the cell to the table
-	    table.addCell(c1);
-	    
-	    table.setHeaderRows(1);
 
 	    // Add the vehicle information
 	    table.addCell("Merk");
@@ -154,6 +129,20 @@ public class CreatePdf {
 	    DecimalFormat format = new DecimalFormat("#.00");
 	    table.addCell("€ " + format.format(vehicle.getHourlyrate() * 24));
 
+	    
+	    //Add the chosen vehicleoptions
+	    VehicleOption vehicleOption = new VehicleOption();
+	    for (Integer o : vehicleOption.all(invoice.getReservation_id())) {
+	    	int day = 24*60*60*1000;
+			// Calculate the number of days
+			long days = Math.abs((invoice.getStartdate().getTime() - invoice.getEnddate().getTime()) / day);	    	
+	    	// Set the name of the option
+			table.addCell(vehicleOption.getByID(o).getName());
+			// Set the price of the option
+			table.addCell("€ " + format.format(vehicleOption.getByID(o).getPrice() * 24 * days));
+		}
+	    
+	    
 	    // Set the prices
 	    table.addCell("Prijs");
 	    table.addCell("€ " + format.format(invoice.getPrice()));

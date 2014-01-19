@@ -17,6 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 
+/**
+ * The view for editing a reservation
+ * 
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class EditReservation extends JFrame {
 

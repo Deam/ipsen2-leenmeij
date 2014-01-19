@@ -13,7 +13,11 @@ import org.jdesktop.swingx.JXDatePicker;
 import javax.swing.JSeparator;
 import javax.swing.JPanel;
 
-
+/**
+ * The view for adding a reservation
+ * @author Deam Kop (s1075228)
+ *
+ */
 @SuppressWarnings("serial")
 public class AddReservation extends JFrame {
 	public JTextField firstnameTextField;
@@ -390,7 +394,5 @@ public class AddReservation extends JFrame {
 		gbc_addButton.gridx = 0;
 		gbc_addButton.gridy = 26;
 		getContentPane().add(addButton, gbc_addButton);
-				
-		setVisible(true);
 	}
 }

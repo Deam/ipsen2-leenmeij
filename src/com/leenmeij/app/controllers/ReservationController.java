@@ -150,10 +150,13 @@ public class ReservationController implements ActionListener, WindowListener{
 		// Set the selected vehicleoptions
 		VehicleOption options = new VehicleOption();
 		for (final VehicleOption vo : options.all()) {
+			// Set the checkbox variables
 			final JCheckBox checkBox = new JCheckBox();
 			checkBox.setText(vo.getName());
 			checkBox.setName(Integer.toString(vo.getId()));
 			
+			// for each vehicle option that we allready have
+			// set the checkbox checked
 			for (Integer o : vo.all(id)) {
 				if (o == vo.getId()) {
 					checkBox.setSelected(true);
@@ -161,13 +164,17 @@ public class ReservationController implements ActionListener, WindowListener{
 				}
 			}
 			
+			// If there is a change in the number of items add it to the list
+			// add the item to the list
 			checkBox.addItemListener(new ItemListener() {
 				
 				@Override
 				public void itemStateChanged(ItemEvent arg0) {
+					// a checkbox is selected, add the item to the list
 					if (checkBox.isSelected()) {
 						optionList.add(vo.getId());
 					}else{
+						// if it is deselected, remove it from the list
 						for (int i = 0; i < optionList.size(); i++) {
 							int tempId = optionList.get(i);
 							
@@ -239,7 +246,7 @@ public class ReservationController implements ActionListener, WindowListener{
 						updatePrices(dayprice += vo.getPrice() * 24);
 					}
 					// If the checkbox is deselected
-					//Update the list, and update the price
+					// Update the list, and update the price
 					else 
 					{
 						for (int i = 0; i < optionList.size(); i++) {
@@ -271,7 +278,9 @@ public class ReservationController implements ActionListener, WindowListener{
 			// Check if there are dates selected
 			else if (e.getSource() == addReservation.selectVehicleButton) {
 				if (addReservation.startDatePicker.getDate() == null
-						|| addReservation.endDatePicker.getDate() == null) {
+						|| addReservation.endDatePicker.getDate() == null 
+							|| addReservation.startDatePicker.getDate().equals(addReservation.endDatePicker.getDate())
+								|| addReservation.endDatePicker.getDate().getTime() < addReservation.startDatePicker.getDate().getTime()) {
 					JOptionPane
 							.showMessageDialog(null,
 									"Selecteer eerst een begin en einddatum voor de verhuur.");
@@ -282,72 +291,81 @@ public class ReservationController implements ActionListener, WindowListener{
 			
 			// Insert the reservation and the options into the database
 			else if(e.getSource() == addReservation.addButton){
-				try{
-					// Set the reservation information
-					Reservation reservation = new Reservation();
-					reservation.setUserId(Integer.parseInt(addReservation.customerNumberTextField.getText()));
-					reservation.setVehicleId(vehicleID);
+				// Check if a vehicle or customer is selected
+				if(addReservation.customerNumberTextField.getText().isEmpty() || addReservation.modelTextField.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null,"Selecteer eerst een gebruiker en voertuig");
+				} else{
+					try{
+						// Set the reservation information
+						Reservation reservation = new Reservation();
+						reservation.setUserId(Integer.parseInt(addReservation.customerNumberTextField.getText()));
+						reservation.setVehicleId(vehicleID);
+						
+						// Parse the date values
+						java.sql.Date sqlStartDate = new java.sql.Date(addReservation.startDatePicker.getDate().getTime());
+						java.sql.Date sqlEndDate = new java.sql.Date(addReservation.endDatePicker.getDate().getTime());
+						
+						reservation.setStartDate(sqlStartDate);
+						reservation.setEndDate(sqlEndDate);
+						
+						// Set pickedup
+						reservation.setPickedUp(false);
+						
+						// Insert the reservation
+						reservation.Insert(reservation);
 					
-					// Parse the date values
-					java.sql.Date sqlStartDate = new java.sql.Date(addReservation.startDatePicker.getDate().getTime());
-					java.sql.Date sqlEndDate = new java.sql.Date(addReservation.endDatePicker.getDate().getTime());
-					
-					reservation.setStartDate(sqlStartDate);
-					reservation.setEndDate(sqlEndDate);
-					
-					// Set pickedup
-					reservation.setPickedUp(false);
-					
-					// Insert the reservation
-					reservation.Insert(reservation);
-				
-					// Ask for the reservation id so we can process it
-					Reservation r = reservation.get(reservation);
-
-					// foreach option in the list, add it to the database
-					for (Integer integer : optionList) {
-						r.InsertReservationOption(integer, r.getId());
+						// Ask for the reservation id so we can process it
+						Reservation r = reservation.get(reservation);
+	
+						// foreach option in the list, add it to the database
+						for (Integer integer : optionList) {
+							r.InsertReservationOption(integer, r.getId());
+						}
+						
+						// Create the invoice
+						Invoice invoice = new Invoice();
+						invoice.setUser_id(Integer.parseInt(addReservation.customerNumberTextField.getText()));
+						invoice.setVehicle_id(vehicleID);
+						invoice.setStartdate(sqlStartDate);
+						invoice.setEnddate(sqlEndDate);
+						
+						// Calculate the prices we need
+						Vehicle vehicle = new Vehicle();
+						vehicle = vehicle.getById(vehicleID);
+						
+						// Set the price per day
+						double dayPrice = vehicle.getHourlyrate() * 24;
+						// Set the time per day
+						int day = 24*60*60*1000;
+						// Calculate the number of days
+						long days = Math.abs((addReservation.startDatePicker.getDate().getTime() - addReservation.endDatePicker.getDate().getTime()) / day);
+						
+						// Set additional invoice information
+						invoice.setPrice(dayPrice * days);
+						invoice.setTotal((invoice.getPrice()) + ((invoice.getPrice() / 100) * 21));
+						invoice.setReservation_id(r.getId());
+						invoice.Insert(invoice);
+						
+						try {
+							// Create the invoice pdf
+							CreatePdf pdf = new CreatePdf();
+							pdf.createPdf(invoice);
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(null, "Door een systeemfout kon er geen pdf gegenereerd worden.");
+						}
+						
+						// Show messagedialog with succes
+						JOptionPane.showMessageDialog(null, "De reservering is succesvol aangemaakt.");
+						
+						// Close the window
+						addReservation.dispose();
+						
+						vehicle.setVehicleAvailable(vehicleID, false);
+						
+						MainController.update();
+					} catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Er missen gegevens, controleer de invoer het probeer het opnieuw");
 					}
-					
-					// Create the invoice
-					Invoice invoice = new Invoice();
-					invoice.setUser_id(Integer.parseInt(addReservation.customerNumberTextField.getText()));
-					invoice.setVehicle_id(vehicleID);
-					invoice.setStartdate(sqlStartDate);
-					invoice.setEnddate(sqlEndDate);
-					
-					// Calculate the prices we need
-					Vehicle vehicle = new Vehicle();
-					vehicle = vehicle.getById(vehicleID);
-					
-					// Set the price per day
-					double dayPrice = vehicle.getHourlyrate() * 24;
-					// Set the time per day
-					int day = 24*60*60*1000;
-					// Calculate the number of days
-					long days = Math.abs((addReservation.startDatePicker.getDate().getTime() - addReservation.endDatePicker.getDate().getTime()) / day);
-					
-					// Set additional invoice information
-					invoice.setPrice(dayPrice * days);
-					invoice.setTotal((invoice.getPrice()) + ((invoice.getPrice() / 100) * 21));
-					invoice.setReservation_id(r.getId());
-					invoice.Insert(invoice);
-					
-					// Create the invoice pdf
-					CreatePdf pdf = new CreatePdf();
-					pdf.createPdf(invoice);
-					
-					// Show messagedialog with succes
-					JOptionPane.showMessageDialog(null, "De reservering is succesvol aangemaakt.");
-					
-					// Close the window
-					addReservation.dispose();
-					
-					vehicle.setVehicleAvailable(vehicleID, false);
-					
-					MainController.update();
-				} catch(Exception ex){
-					JOptionPane.showMessageDialog(null, "Er missen gegevens, controleer de invoer het probeer het opnieuw");
 				}
 				
 			}
