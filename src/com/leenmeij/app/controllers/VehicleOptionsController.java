@@ -17,7 +17,7 @@ import com.leenmeij.app.views.vehicleoptions.Overview;
 /**
  * Here we make the views for the vehicleoptions
  * Add the actionlisteners, and create the table
- * @author Deam
+ * @author Deam Kop (s1075228), Michiel Mooring
  *
  */
 public class VehicleOptionsController implements ActionListener {

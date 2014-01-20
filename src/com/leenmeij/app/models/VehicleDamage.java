@@ -12,7 +12,7 @@ import com.leenmeij.app.utils.Database;
  * This class handles database methods for the vehicledamage
  * Here we only insert and return damage per vehicle
  * 
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel Mooring
  */
 public class VehicleDamage {
 	

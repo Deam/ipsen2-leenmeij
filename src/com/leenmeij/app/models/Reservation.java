@@ -12,7 +12,7 @@ import com.leenmeij.app.utils.Database;
  * This class handles the reservation making
  * It holds methods for
  * Inserting, Updating, Deleting etc.
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel Mooring, Nick Bosland
  *
  */
 public class Reservation {

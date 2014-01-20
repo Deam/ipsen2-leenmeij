@@ -35,7 +35,7 @@ import com.leenmeij.app.views.vehicle.AddDamage;
 /**
  * Here we handle showing screens, actionlistners and other events
  * We also make a few tables, and calculations for prices and such
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel Mooring
  *
  */
 public class ReservationController implements ActionListener, WindowListener{

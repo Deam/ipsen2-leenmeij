@@ -25,7 +25,7 @@ import com.leenmeij.app.views.vehicle.Overview;
 /**
  * Here we handle showing screens, actionlistners and other events
  * We also make a few tables, and the defaultcombobox for the categories
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Nick Bosland
  *
  */
 public class VehicleController implements ActionListener{

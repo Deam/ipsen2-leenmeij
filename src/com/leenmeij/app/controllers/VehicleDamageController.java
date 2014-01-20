@@ -10,7 +10,7 @@ import com.leenmeij.app.models.VehicleDamage;
 
 /**
  * Here we return a table with the damage per vehicle
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel Mooring
  */
 public class VehicleDamageController {
 	

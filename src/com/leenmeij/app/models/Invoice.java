@@ -12,7 +12,7 @@ import com.leenmeij.app.utils.Database;
  * Vehicle invoices are made in this class.
  * The invoice holds the user and vehicle id, and the price
  * aswell as the dates and additional information
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel Mooring, David
  *
  */
 public class Invoice {

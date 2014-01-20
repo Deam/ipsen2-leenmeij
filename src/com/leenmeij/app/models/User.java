@@ -9,7 +9,7 @@ import com.leenmeij.app.utils.Database;
 /**
  * This class handles the user methods
  * Including loggin in, inserting, updating etc.
- * @author Deam
+ * @author Deam Kop (s1075228), David
  *
  */
 public class User {

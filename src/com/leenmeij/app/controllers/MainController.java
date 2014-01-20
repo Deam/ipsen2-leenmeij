@@ -8,7 +8,7 @@ import com.leenmeij.app.views.Main;
 /**
  * Main class, here we show the tables with some information
  * as well as the menubar to select the options from.
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Nick
  */
 public class MainController implements ActionListener {
 

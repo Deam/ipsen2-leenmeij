@@ -4,6 +4,7 @@ package com.leenmeij.app.models;
  * Here we insert, update and get the userroles
  * depending on the users. This is done so we can add
  * restrictions depending on the userrole
+ * @author Deam Kop(s1075228), David
  */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -20,7 +20,7 @@ import com.leenmeij.app.views.users.Overview;
 /**
  * Here we handle showing screens, actionlistners and other events
  * We also make a few tables
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), David
  *
  */
 public class UserController implements ActionListener {

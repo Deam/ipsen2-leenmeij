@@ -11,7 +11,7 @@ import com.leenmeij.app.utils.Database;
  * Inserting, updating, deleting and arraylists.
  * Here we also check if the vehicle can be rented
  * 
- * @author Deam Kop
+ * @author Deam Kop(s1075228), Nick Bosland
  * 
  */
 public class Vehicle {

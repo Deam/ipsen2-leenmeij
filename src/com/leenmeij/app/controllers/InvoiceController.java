@@ -15,7 +15,7 @@ import com.leenmeij.app.views.reservations.InvoiceOverview;
 /**
  * Invoicecontroller handles the showing of the overview
  * as wel as creating the desired tables
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel, David
  */
 public class InvoiceController {
 	

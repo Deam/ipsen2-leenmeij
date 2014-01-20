@@ -9,7 +9,7 @@ import com.leenmeij.app.utils.Database;
 /**
  * This class handles database methods like:
  * Inserting, updating, deleting and returning lists
- * @author Deam Kop (s1075228)
+ * @author Deam Kop (s1075228), Michiel Mooring
  *
  */
 public class VehicleOption{
